@@ -3,14 +3,13 @@ function entryProperties() {
         generateId: () => {
             return Math.random().toString(36).substring(2) +
                 (new Date()).getTime().toString(36);
-            
         },
     }
 }
 
 function taskProperties() {
     return {
-        ...entryProperties,
+        ...entryProperties(),
 
         setCompleted: () => {
             this.complete = true;
@@ -32,7 +31,7 @@ function taskProperties() {
 
 function projectProperties() {
     return {
-        ...entryProperties,
+        ...entryProperties(),
     }
 }
 
@@ -50,25 +49,24 @@ function listProperties() {
 
 function createTask (name) {
     return {
-        ...taskProperties,
+        ...taskProperties(),
         name,
-        id: entryProperties().generateId(),
+        id: taskProperties().generateId(),
     }
 }
 
 function createProject (name) {
     return {
-        ...projectProperties,
+        ...projectProperties(),
         name,
-        id: entryProperties().generateId(),
+        id: projectProperties().generateId(),
     }
 }
 
 function createTaskList() {
     return {
         ...listProperties(),
-        createTask: (t) => {
-        },
+        ...createTask(),
     }
 }
 
