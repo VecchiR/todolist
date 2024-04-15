@@ -1,16 +1,21 @@
-class Task {
+class Entry {
     constructor (name) {
         this.name = name;
         this.generateId();
     }
-    
-    setCompleted() {
-        this.complete = true;
-    }
-    
+
     generateId() {
         this.id = Math.random().toString(36).substring(2) +
             (new Date()).getTime().toString(36);
+    }
+}
+
+
+
+class Task extends Entry {
+    
+    setCompleted() {
+        this.complete = true;
     }
 
     setProject() {
@@ -28,30 +33,52 @@ class Task {
 
 }
 
+class Project extends Entry {
 
-const TaskList = (function () {
+}
 
-    const list = [];
 
-    const createTask = () => {
-        let name = `Todo ${list.length+1}`;
-        let newTask = new Task(name);
-        addTasktoList(newTask);
+
+
+class List {
+    constructor () {
+        this.list = [];
     }
 
-    const showMeYourList = () => {
-        console.log(list); 
+    showList = () => {
+        console.log(this.list); 
     }
 
-    const addTasktoList = (task) => {
-        list.push(task);
+    addToList = (entry) => {
+        this.list.push(entry);
     } 
 
-    return { createTask, showMeYourList };
-})();
+}
 
-TaskList.createTask();
-TaskList.showMeYourList();
+class TaskList extends List {
+    createTask = () => {
+        let name = `Task ${this.list.length+1}`;
+        let newTask = new Task(name);
+        this.addToList(newTask);
+        console.log(newTask);
+    }
+}
+
+class ProjectList extends List {
+    createProject = () => {
+        let name = `Project ${this.list.length+1}`;
+        let newProject = new Project(name);
+        this.addToList(newProject);
+        console.log(newProject);
+    }
+}
+
+
+
+
+const taskList = new TaskList();
+const projectList = new ProjectList();
+
 
 
 
