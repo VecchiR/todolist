@@ -1,6 +1,6 @@
 body {
     display: grid;
-    grid-template: 1fr 1fr 30px / 1fr 4fr;
+    grid-template: 40px 1fr 30px / 1fr 4fr;
     height: 100vh;
     text-align: center;
     margin: 0;
@@ -17,4 +17,8 @@ footer,
 .sidebar,
 .main-content {
     border: 1px solid black;
+}
+
+.sidebar {
+    display: grid;
 }

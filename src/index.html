@@ -1,18 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
     <header>what a beautiful header</header>
-    <div class="sidebar">this is side sidebar side's</div>
-    <div class="main-content">look at this beautiful main content area. So nice!</div>
+    <div class="sidebar">
+        <div class="filters-container">FILTERS:
+            <div class="filter">Filter 1</div>
+            <div class="filter">Filter 2</div>
+            <div class="filter">Filter 3</div>
+        </div>
+        <div class="projects-container">PROJECTS:
+            <div class="project">Project 1</div>
+            <div class="project">Project 2</div>
+            <div class="project">Project 3</div>
+            <button>Add Project</button>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="main-label">PROJECT NAME</div>
+        <div class="tasks-container">
+            <div class="task">Task 1</div>
+            <div class="task">Task 2</div>
+            <div class="task">Task 3</div>
+        </div>
+        <button>Add Task</button>
+    </div>
+
     <footer>this is a prescious footer</footer>
 
     <script src="./index.js"></script>
 </body>
+
 </html>
