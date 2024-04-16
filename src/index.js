@@ -1,79 +1,81 @@
-function entryProperties() {
-    return {
-        generateId: () => {
-            return Math.random().toString(36).substring(2) +
-                (new Date()).getTime().toString(36);
-        },
+class Entry {
+    generateId = () => {
+        return Math.random().toString(36).substring(2) +
+            (new Date()).getTime().toString(36);
     }
 }
 
-function taskProperties() {
-    return {
-        ...entryProperties(),
+class Task {
+    constructor(name) {
+        this.entry = new Entry();
+        this.name = name;
+        this.id = this.entry.generateId();
+    }
 
-        setCompleted: () => {
-            this.complete = true;
-        },
+    setCompleted() {
+        this.complete = true;
+    }
 
-        setProject: () => {
-            this.project = 'project set';
-        },
+    setProject() {
+        this.project = 'project set';
+    }
 
-        setDate: () => {
-            this.date = 'date set';
-        },
+    setDate() {
+        this.date = 'date set';
+    }
 
-        setDescription: () => {
-            this.description = 'description set';
-        },
+    setDescription() {
+        this.description = 'description set';
     }
 }
 
-function projectProperties() {
-    return {
-        ...entryProperties(),
+class Project {
+    constructor(name) {
+        this.entry = new Entry();
+        this.name = name;
+        this.id = this.entry.generateId();
     }
 }
 
-function listProperties() {
-    return {
-        showList: () => {
-            console.log(this.list);
-        },
+class ListMethods {
+    getList = () => {
+        console.log(list);
+    }
 
-        addToList: (entry) => {
-            this.list.push(entry);
-        },
+    addToList = (entry) => {
+        list.push(entry);
     }
 }
 
-function createTask (name) {
-    return {
-        ...taskProperties(),
-        name,
-        id: taskProperties().generateId(),
-    }
-}
+const taskList = (function () {
 
-function createProject (name) {
-    return {
-        ...projectProperties(),
-        name,
-        id: projectProperties().generateId(),
-    }
-}
+    listMethods = new ListMethods();
 
-function createTaskList() {
-    return {
-        ...listProperties(),
-        ...createTask(),
-    }
-}
+    list = [];
 
-function createProjectList() {
-    return {
-        ...listProperties(),
-        createProject: (p) => {
-        },
+    createTask = (name) => {
+        let task = new Task(name);
+        listMethods.addToList(task);
+        return list;
     }
-}
+
+    return {
+        listMethods,
+        createTask,
+    }
+})();
+
+const projectList = (function () {
+    listMethods = new ListMethods();
+    list = [];
+    createProject = (name) => {
+        let prj = new Project(name);
+        listMethods.addToList(prj);
+        return list;
+    }
+
+    return {
+        listMethods,
+        createProject,
+    }
+})();
