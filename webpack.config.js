@@ -12,6 +12,19 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html',
+            title: 'to-do list',
         }),
     ],
+    module: {
+        rules: [
+         {
+           test: /\.(png|svg|jpg|jpeg|gif)$/i,
+           type: 'asset/resource',
+         },
+         {
+            test: /\.css$/i,
+            use: ['style-loader', 'css-loader'],
+          },
+        ],
+      },
 };
