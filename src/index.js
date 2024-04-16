@@ -16,8 +16,8 @@ class Task {
         this.complete = true;
     }
 
-    setProject() {
-        this.project = 'project set';
+    setProject(prj) {
+        this.project = prj;
     }
 
     setDate() {
@@ -38,44 +38,55 @@ class Project {
 }
 
 class ListMethods {
-    getList = () => {
-        console.log(list);
+    getList = function (list) {
+        return list;
     }
 
-    addToList = (entry) => {
+    addToList = function (list, entry) {
         list.push(entry);
     }
 }
 
 const taskList = (function () {
 
-    listMethods = new ListMethods();
+    const listMethods = new ListMethods();
 
-    list = [];
+    const list = [];
 
-    createTask = (name) => {
+    const createTask = (name) => {
         let task = new Task(name);
-        listMethods.addToList(task);
+        listMethods.addToList(list, task);
         return list;
+    }
+
+    const getList = () => {
+        return listMethods.getList(list);
     }
 
     return {
         listMethods,
         createTask,
+        getList,
+        // list,
     }
 })();
 
 const projectList = (function () {
-    listMethods = new ListMethods();
-    list = [];
-    createProject = (name) => {
+    const listMethods = new ListMethods();
+    const list = [];
+    const createProject = (name) => {
         let prj = new Project(name);
-        listMethods.addToList(prj);
+        listMethods.addToList(list, prj);
         return list;
+    }
+    const getList = () => {
+        return listMethods.getList(list);
     }
 
     return {
         listMethods,
         createProject,
+        getList,
+        // list,
     }
 })();
