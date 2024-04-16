@@ -10,21 +10,25 @@ const addTaskBtn = document.querySelector('.add-task');
 const addProjectBtn = document.querySelector('.add-project');
 
 const tasksContainer = document.querySelector('.tasks-container');
-const projectsContainer = document.querySelector('.projects-container');
+const projectsSubContainer = document.querySelector('.projects-subcontainer');
 
 addTaskBtn.addEventListener('click', createTaskForm);
 addProjectBtn.addEventListener('click', createProjectForm);
 
 function createTaskForm() {
-    let hasForm = tasksContainer.querySelector("form") != null;
+    let taskHasForm = tasksContainer.querySelector("form") != null;
+    let prjHasForm = projectsSubContainer.querySelector("form") != null;
 
-    if (hasForm === false) {
+
+    if (taskHasForm === false) {
+        if (prjHasForm) {projectsSubContainer.querySelector("form").remove();}
         const form = document.createElement("form");
+        form.classList.add("task-form")
         form.setAttribute("autocomplete", "off");
 
         const taskNameInput = document.createElement("input");
         taskNameInput.type = "text";
-        taskNameInput.name = "task";
+        taskNameInput.name = "task-name";
         taskNameInput.placeholder = "Enter task name";
 
         const descriptionInput = document.createElement("input");
@@ -57,7 +61,35 @@ function createTaskForm() {
 
 
 function createProjectForm() {
+    let prjHasForm = projectsSubContainer.querySelector("form") != null;
+    let taskHasForm = tasksContainer.querySelector("form") != null;
 
+
+    if (prjHasForm === false) {
+        if (taskHasForm) {tasksContainer.querySelector("form").remove();}
+        const form = document.createElement("form");
+        form.classList.add("project-form")
+        form.setAttribute("autocomplete", "off");
+
+        const projectNameInput = document.createElement("input");
+        projectNameInput.type = "text";
+        projectNameInput.name = "project-name";
+        projectNameInput.placeholder = "Enter project name";
+
+        const submitButton = document.createElement("button");
+        submitButton.type = "submit";
+        submitButton.textContent = "Add";
+
+        const cancelButton = document.createElement("button");
+        cancelButton.type = "button";
+        cancelButton.textContent = "Cancel";
+
+        form.appendChild(projectNameInput);
+        form.appendChild(submitButton);
+        form.appendChild(cancelButton);
+
+        projectsSubContainer.appendChild(form);
+    }
 }
 
 
