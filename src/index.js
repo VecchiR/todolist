@@ -19,6 +19,11 @@ tasksContainer.addEventListener('click', (e) => {
     if (e.target.type === 'button') {
         removeForm(tasksContainer);
     }
+
+    else if (e.target.type === 'submit') {
+        e.preventDefault();
+        creatething();
+    }
 })
 
 projectsSubContainer.addEventListener('click', (e) => {
@@ -26,6 +31,11 @@ projectsSubContainer.addEventListener('click', (e) => {
         removeForm(projectsSubContainer);
     }
 })
+
+function creatething() {
+
+}
+
 
 function removeForm(container) {
     container.querySelector('form').remove();
@@ -57,6 +67,12 @@ function createTaskForm() {
         dateInput.name = "date";
         dateInput.id = "date";
 
+        const projectSelect = document.createElement("select");
+        projectSelect.name = "projectSelect";
+        projectSelect.id = "projectSelect";
+        const projectOptions = createProjectOptions();
+        projectOptions.forEach(x => projectSelect.appendChild(x));
+
         const submitButton = document.createElement("button");
         submitButton.type = "submit";
         submitButton.textContent = "Add";
@@ -68,11 +84,25 @@ function createTaskForm() {
         form.appendChild(taskNameInput);
         form.appendChild(descriptionInput);
         form.appendChild(dateInput);
+        form.appendChild(projectSelect);
         form.appendChild(submitButton);
         form.appendChild(cancelButton);
 
         tasksContainer.appendChild(form);
     }
+}
+
+function createProjectOptions() {
+    const list = projectList.getList();
+    const options = [];
+
+    list.forEach(p => {
+        options[list.indexOf(p)] = document.createElement('option');
+        options[list.indexOf(p)].prjID = p.id;
+        options[list.indexOf(p)].textContent = p.name; 
+    });
+
+    return options;
 }
 
 function createProjectForm() {
@@ -107,6 +137,7 @@ function createProjectForm() {
     }
 }
 
-
+projectList.createProject('Test project 1');
+projectList.createProject('Test project 2');
 
 //-------------------------------- end of DOMstuff -----------------------------------------------//
