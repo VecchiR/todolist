@@ -22,3 +22,8 @@ footer,
 .sidebar {
     display: grid;
 }
+
+.task {
+    display: grid;
+    grid-auto-flow: column;
+}

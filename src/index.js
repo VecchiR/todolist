@@ -15,6 +15,22 @@ const projectsSubContainer = document.querySelector('.projects-subcontainer');
 addTaskBtn.addEventListener('click', createTaskForm);
 addProjectBtn.addEventListener('click', createProjectForm);
 
+tasksContainer.addEventListener('click', (e) => {
+    if (e.target.type === 'button') {
+        removeForm(tasksContainer);
+    }
+})
+
+projectsSubContainer.addEventListener('click', (e) => {
+    if (e.target.type === 'button') {
+        removeForm(projectsSubContainer);
+    }
+})
+
+function removeForm(container) {
+    container.querySelector('form').remove();
+}
+
 function createTaskForm() {
     let taskHasForm = tasksContainer.querySelector("form") != null;
     let prjHasForm = projectsSubContainer.querySelector("form") != null;
@@ -59,7 +75,6 @@ function createTaskForm() {
     }
 }
 
-
 function createProjectForm() {
     let prjHasForm = projectsSubContainer.querySelector("form") != null;
     let taskHasForm = tasksContainer.querySelector("form") != null;
@@ -91,6 +106,7 @@ function createProjectForm() {
         projectsSubContainer.appendChild(form);
     }
 }
+
 
 
 //-------------------------------- end of DOMstuff -----------------------------------------------//
