@@ -35,19 +35,17 @@ projectsSubContainer.addEventListener('click', (e) => {
 })
 
 function assingTaskValues(t) {
-
     t.setName(document.querySelector('input[name=task-name]').value);
     t.setDescription(document.querySelector('input[name=description]').value);
     t.setDate(document.querySelector('input[name=date]').value);
     t.setProject(document.querySelector('select[name=projectSelect]').value);
 }
 
-function createTaskElement() {
+function createTaskElement(t) {
 
     const task = document.createElement("div");
-    task.classList.add("task")
-        let taskID = getTaskID()
-        task.setAttribute("taskID", taskID);
+    task.classList.add("task");
+    task.setAttribute("taskID", t.id);
 
     const checkbox = document.createElement("div");
     checkbox.classList.add("checkbox");
@@ -57,22 +55,25 @@ function createTaskElement() {
 
     const taskName = document.createElement("div");
     taskName.classList.add("task-name");
-    //innerHtml = get name 
+    taskName.textContent = t.name;
 
     const taskDescription = document.createElement("div");
     taskDescription.classList.add("task-description");
-    //innerHtml = get description
+    taskDescription.textContent = t.description;
 
     taskText.appendChild(taskName);
     taskText.appendChild(taskDescription);
 
     const date = document.createElement("div");
     date.classList.add("date");
-    //innerHtml = get date
+    date.textContent = t.date;
+
+    const project = document.createElement("div");
+    project.classList.add("project");
+    project.textContent = t.project;
 
     const urgent = document.createElement("div");
     urgent.classList.add("urgent");
-    //innerHtml = get urgent
 
     const contextMenu = document.createElement("div");
     contextMenu.classList.add("context-menu");
@@ -80,6 +81,7 @@ function createTaskElement() {
     task.appendChild(checkbox);
     task.appendChild(taskText);
     task.appendChild(date);
+    task.appendChild(project);
     task.appendChild(urgent);
     task.appendChild(contextMenu);
 
