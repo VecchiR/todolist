@@ -27,19 +27,51 @@ tasksContainer.addEventListener('click', (e) => {
         createTaskElement(newTask);
         removeForm(tasksContainer);
     }
-})
+});
 
 projectsSubContainer.addEventListener('click', (e) => {
     if (e.target.type === 'button') {
         removeForm(projectsSubContainer);
     }
-})
+
+    else if (e.target.type === 'submit') {
+        e.preventDefault();
+        let newProject = projectList.createProject();
+        assingProjectValues(newProject);
+        createProjectElement(newProject);
+        removeForm(projectsSubContainer);
+    }
+});
+
+
+function assingProjectValues(p) {
+    p.setName(document.querySelector('input[name=project-name]').value);
+}
 
 function assingTaskValues(t) {
     t.setName(document.querySelector('input[name=task-name]').value);
     t.setDescription(document.querySelector('input[name=description]').value);
     t.setDate(document.querySelector('input[name=date]').value);
     t.setProject(document.querySelector('select[name=projectSelect]').value);
+}
+
+function createProjectElement(p) {
+    const project = document.createElement("div");
+    project.classList.add("project");
+    project.setAttribute("projectID", p.id);
+
+    const projectName = document.createElement("div");
+    projectName.classList.add("project-name");
+    projectName.textContent = p.name;
+
+
+    const contextMenu = document.createElement("div");
+    contextMenu.classList.add("context-menu");
+
+    project.appendChild(projectName);
+    project.appendChild(contextMenu);
+
+    projectsSubContainer.appendChild(project);   
 }
 
 function createTaskElement(t) {
