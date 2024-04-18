@@ -22,7 +22,9 @@ tasksContainer.addEventListener('click', (e) => {
 
     else if (e.target.type === 'submit') {
         e.preventDefault();
-        creatething();
+        let newTask = taskList.createTask();
+        assingTaskValues(newTask);
+        createTaskElement(newTask);
     }
 })
 
@@ -32,7 +34,56 @@ projectsSubContainer.addEventListener('click', (e) => {
     }
 })
 
-function creatething() {
+function assingTaskValues(t) {
+
+    t.setName(document.querySelector('input[name=task-name]').value);
+    t.setDescription(document.querySelector('input[name=description]').value);
+    t.setDate(document.querySelector('input[name=date]').value);
+    t.setProject(document.querySelector('select[name=projectSelect]').value);
+}
+
+function createTaskElement() {
+
+    const task = document.createElement("div");
+    task.classList.add("task")
+        let taskID = getTaskID()
+        task.setAttribute("taskID", taskID);
+
+    const checkbox = document.createElement("div");
+    checkbox.classList.add("checkbox");
+
+    const taskText = document.createElement("div");
+    taskText.classList.add("task-text");
+
+    const taskName = document.createElement("div");
+    taskName.classList.add("task-name");
+    //innerHtml = get name 
+
+    const taskDescription = document.createElement("div");
+    taskDescription.classList.add("task-description");
+    //innerHtml = get description
+
+    taskText.appendChild(taskName);
+    taskText.appendChild(taskDescription);
+
+    const date = document.createElement("div");
+    date.classList.add("date");
+    //innerHtml = get date
+
+    const urgent = document.createElement("div");
+    urgent.classList.add("urgent");
+    //innerHtml = get urgent
+
+    const contextMenu = document.createElement("div");
+    contextMenu.classList.add("context-menu");
+
+    task.appendChild(checkbox);
+    task.appendChild(taskText);
+    task.appendChild(date);
+    task.appendChild(urgent);
+    task.appendChild(contextMenu);
+
+    tasksContainer.appendChild(task);
 
 }
 
@@ -47,7 +98,7 @@ function createTaskForm() {
 
 
     if (taskHasForm === false) {
-        if (prjHasForm) {projectsSubContainer.querySelector("form").remove();}
+        if (prjHasForm) { projectsSubContainer.querySelector("form").remove(); }
         const form = document.createElement("form");
         form.classList.add("task-form")
         form.setAttribute("autocomplete", "off");
@@ -99,7 +150,7 @@ function createProjectOptions() {
     list.forEach(p => {
         options[list.indexOf(p)] = document.createElement('option');
         options[list.indexOf(p)].prjID = p.id;
-        options[list.indexOf(p)].textContent = p.name; 
+        options[list.indexOf(p)].textContent = p.name;
     });
 
     return options;
@@ -111,7 +162,7 @@ function createProjectForm() {
 
 
     if (prjHasForm === false) {
-        if (taskHasForm) {tasksContainer.querySelector("form").remove();}
+        if (taskHasForm) { tasksContainer.querySelector("form").remove(); }
         const form = document.createElement("form");
         form.classList.add("project-form")
         form.setAttribute("autocomplete", "off");
@@ -137,7 +188,9 @@ function createProjectForm() {
     }
 }
 
-projectList.createProject('Test project 1');
-projectList.createProject('Test project 2');
+projectList.createProject();
+projectList.getList()[0].name = 'project 1';
+projectList.createProject();
+projectList.getList()[1].name = 'project 2';
 
 //-------------------------------- end of DOMstuff -----------------------------------------------//

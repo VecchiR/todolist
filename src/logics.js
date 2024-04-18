@@ -6,14 +6,17 @@ export class Entry {
 }
 
 export class Task {
-    constructor(name) {
+    constructor() {
         this.entry = new Entry();
-        this.name = name;
         this.id = this.entry.generateId();
     }
 
     setCompleted() {
         this.complete = !this.complete;
+    }
+
+    setName(name) {
+        this.name = name;
     }
 
     setProject(prj) {
@@ -30,10 +33,13 @@ export class Task {
 }
 
 export class Project {
-    constructor(name) {
+    constructor() {
         this.entry = new Entry();
-        this.name = name;
         this.id = this.entry.generateId();
+    }
+
+    setName(name) {
+        this.name = name;
     }
 }
 
@@ -54,9 +60,9 @@ export const taskList = (function () {
     const list = [];
 
     const createTask = (name) => {
-        let task = new Task(name);
+        let task = new Task();
         listMethods.addToList(list, task);
-        return list;
+        return task;
     }
 
     const getList = () => {
@@ -73,10 +79,10 @@ export const taskList = (function () {
 export const projectList = (function () {
     const listMethods = new ListMethods();
     const list = [];
-    const createProject = (name) => {
-        let prj = new Project(name);
+    const createProject = () => {
+        let prj = new Project();
         listMethods.addToList(list, prj);
-        return list;
+        return prj;
     }
     const getList = () => {
         return listMethods.getList(list);
