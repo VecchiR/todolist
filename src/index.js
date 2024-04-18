@@ -25,6 +25,7 @@ tasksContainer.addEventListener('click', (e) => {
         let newTask = taskList.createTask();
         assingTaskValues(newTask);
         createTaskElement(newTask);
+        removeForm(tasksContainer);
     }
 })
 
