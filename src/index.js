@@ -53,6 +53,7 @@ function assingTaskValues(t) {
     t.setDescription(document.querySelector('input[name=description]').value);
     t.setDate(document.querySelector('input[name=date]').value);
     t.setProject(document.querySelector('select[name=projectSelect]').value);
+    // t.setProject(document.querySelector())
 }
 
 function createProjectElement(p) {
@@ -227,5 +228,6 @@ projectList.createProject();
 projectList.getList()[0].name = 'project 1';
 projectList.createProject();
 projectList.getList()[1].name = 'project 2';
+
 
 //-------------------------------- end of DOMstuff -----------------------------------------------//
