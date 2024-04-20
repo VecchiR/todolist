@@ -1,0 +1,8 @@
+function renderMainContent(type, id) --> FILTRO ou PROJETO --> caça as tasks
+
+talvez?
+function renderPage(filtro) {
+    tem que render sidebar pegando a "lista de filtros possiveis" e "lista de projetos"
+    e o main content? -> SE TA ABRINDO O SITE: vai de "all tasks"/default 
+    SE ACABOU DE CRIAR UM PROJETO (e por isso ta tendo que renderizar de novo): mantem onde ja tava (o filtro ou projeto que tava antes) 
+}
