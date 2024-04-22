@@ -23,6 +23,10 @@ export class Task {
         this.project = prj;
     }
 
+    // setProjectByID(prjID) {
+    //     this.projectID = prjID;
+    // }
+
     setDate() {
         this.date = 'date set';
     }

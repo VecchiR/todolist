@@ -1,5 +1,5 @@
 import { Entry, Task, Project, ListMethods, taskList, projectList } from "./logics";
-import { renderInitialScreen } from './DOMstuff';
+//import { renderInitialScreen } from './DOMstuff';
 import './style.css';
 
 
@@ -38,8 +38,7 @@ projectsSubContainer.addEventListener('click', (e) => {
         e.preventDefault();
         let newProject = projectList.createProject();
         assingProjectValues(newProject);
-        createProjectElement(newProject);
-        removeForm(projectsSubContainer);
+        updateProjects();
     }
 });
 
@@ -72,7 +71,7 @@ function createProjectElement(p) {
     project.appendChild(projectName);
     project.appendChild(contextMenu);
 
-    projectsSubContainer.appendChild(project);   
+    projectsSubContainer.appendChild(project);
 }
 
 function createTaskElement(t) {
@@ -225,12 +224,30 @@ function createProjectForm() {
 }
 
 
-function loadHome() {
-    
+function updateProjects() {
+
+    //remove any content from container
+    projectsSubContainer.replaceChildren();
+
+    //add projects from projectList as elements
+    projectList.getList().forEach((p) => createProjectElement(p));
+
 }
 
+let p1 = projectList.createProject();
+p1.setName('project 1');
+let p2 = projectList.createProject();
+p2.setName('project 2');
+let t1 = taskList.createTask();
+let t2 = taskList.createTask();
+t1.setName('task from project 1');
+t1.setProject(p1.name);
+t2.setName('task from project 2');
+t2.setProject(p2.name);
+console.log(projectList.getList());
+console.log(taskList.getList());
 
-loadHome();
+updateProjects();
 
 
 //-------------------------------- end of DOMstuff -----------------------------------------------//

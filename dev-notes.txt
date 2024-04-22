@@ -1,8 +1,43 @@
+na verdade: IIFE?
+
+const pageRenderer = (function () {
+    // e tal
+    // mas talvez fazer isso depois, pq possivelmente vai incluir a
+    //função "renderPage(), mas tambem mt do "DOMstuff"
+})();
+
+
+function renderPage() {   
+
+    "modular" -> recarregar certas porçoes da pagina de acordo com 
+    o que foi feito
+        dependendo da ação, nao precisa recarregar o main-content OU
+        a sidebar
+    
+    render sidebar:
+        filtros->
+        projestos-> projectList (all entries)
+    
+    render main-content:
+        quando carrega a pagina
+            label-> default (all tasks)
+            tasks-> taskList (all entries)
+
+        quando clica em algum filtro
+            label-> filtro selecionado
+            tasks-> depende da condição do filtro
+
+        quando clica em projeto
+            label-> projeto selecionado (pesquisa pelo ID na projectList -> retrieve project.name)
+            tasks-> na taskList, procura por tasks cujo task.project === retrive project.name(project.id) ->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> NA VERDADE, ADICIONAR PROJECT ID COMO PROPERTY DA TASK!
+
+        quando cria/deleta projeto
+        quando cria/deleta task
+            label-> mantem selecionado o projeto/filtro que já tava
+            tasks->tambem mantem (adiciona)
+
+}
 
 
 
-
-
-
-
-
+alem disso, não ta passando os id's pra pagina né
