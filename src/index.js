@@ -223,9 +223,12 @@ function createProjectForm() {
     }
 }
 
-projectList.createProject();
-projectList.getList()[0].name = 'project 1';
-projectList.createProject();
-projectList.getList()[1].name = 'project 2';
+
+function loadHome() {
+    
+}
+
+
+loadHome();
 
 //-------------------------------- end of DOMstuff -----------------------------------------------//
