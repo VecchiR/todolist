@@ -6,6 +6,8 @@ import './style.css';
 //I'm going to do the DOMstuff here (from here to the commented dashed line), then all of this should be
 //moved to DOMstuff.js, exported there and imported back here.
 
+const mainLabel = document.querySelector('.main-label');
+
 const addTaskBtn = document.querySelector('.add-task');
 const addProjectBtn = document.querySelector('.add-project');
 
@@ -51,14 +53,16 @@ function assingTaskValues(t) {
     t.setName(document.querySelector('input[name=task-name]').value);
     t.setDescription(document.querySelector('input[name=description]').value);
     t.setDate(document.querySelector('input[name=date]').value);
-    t.setProject(document.querySelector('select[name=projectSelect]').value);
-    // t.setProject(document.querySelector())
+    t.setProjectID(document.querySelector('select[name=projectSelect]').getAttribute('projectID'));
 }
 
 function createProjectElement(p) {
     const project = document.createElement("div");
     project.classList.add("project");
     project.setAttribute("projectID", p.id);
+    project.addEventListener('click', () => {
+        openProjectView(p);
+    });
 
     const projectName = document.createElement("div");
     projectName.classList.add("project-name");
@@ -74,11 +78,47 @@ function createProjectElement(p) {
     projectsSubContainer.appendChild(project);
 }
 
-function createTaskElement(t) {
+function openProjectView(prj) {
+    renderMainContent(prj, 'project');
+    console.log(prj);
+}
+
+function renderMainContent(arg, viewMode) {
+    mainLabel.textContent = arg.name;
+    mainLabel.setAttribute('viewMode', viewMode);
+
+    let tasks = getTasksToShow(arg, viewMode);
+    updateTasks(tasks, viewMode);
+}
+
+function getTasksToShow(arg, mode) {
+    if (mode === 'project') {
+        return taskList.getList().filter((t) => t.projectID === arg.id);
+    }
+
+    else if (mode === 'filter') {
+        return ;
+    }
+}
+
+/*function updateTasks(tasks, mode) {
+
+    //remove any content from container
+    tasksContainer.replaceChildren();
+
+    //add tasks from [tasks to show] as elements
+    [tasks to show].forEach((t) => createTaskElement(t, mode));
+
+}*/
+
+
+
+function createTaskElement(t, mode) {
 
     const task = document.createElement("div");
     task.classList.add("task");
     task.setAttribute("taskID", t.id);
+    task.setAttribute("projectID", t.projectID);
 
     const checkbox = document.createElement("div");
     checkbox.classList.add("checkbox");
@@ -101,9 +141,11 @@ function createTaskElement(t) {
     date.classList.add("date");
     date.textContent = t.date;
 
-    const project = document.createElement("div");
-    project.classList.add("project");
-    project.textContent = t.project;
+    if (mode === 'filter') {
+        const project = document.createElement("div");
+        project.classList.add("project");
+        project.textContent = t.project;
+    }
 
     const urgent = document.createElement("div");
     urgent.classList.add("urgent");
@@ -114,7 +156,7 @@ function createTaskElement(t) {
     task.appendChild(checkbox);
     task.appendChild(taskText);
     task.appendChild(date);
-    task.appendChild(project);
+    if (mode === 'filter') { task.appendChild(project) };
     task.appendChild(urgent);
     task.appendChild(contextMenu);
 
@@ -156,8 +198,17 @@ function createTaskForm() {
         const projectSelect = document.createElement("select");
         projectSelect.name = "projectSelect";
         projectSelect.id = "projectSelect";
-        const projectOptions = createProjectOptions();
+
+        //create and append options on select element
+        const projectOptions = createProjectOptions(projectSelect);
         projectOptions.forEach(x => projectSelect.appendChild(x));
+
+        //set the select element's projectID attribute to be the same as the selected option's
+        const opt = projectSelect.options;
+        projectSelect.setAttribute('projectID', opt[opt.selectedIndex].getAttribute('projectID'));
+        projectSelect.addEventListener("change", (e) => {
+            projectSelect.setAttribute('projectID', opt[opt.selectedIndex].getAttribute('projectID'));
+        });
 
         const submitButton = document.createElement("button");
         submitButton.type = "submit";
@@ -178,18 +229,19 @@ function createTaskForm() {
     }
 }
 
-function createProjectOptions() {
+function createProjectOptions(parent) {
     const list = projectList.getList();
     const options = [];
 
     list.forEach(p => {
         options[list.indexOf(p)] = document.createElement('option');
-        options[list.indexOf(p)].prjID = p.id;
+        options[list.indexOf(p)].setAttribute ('projectID', p.id);
         options[list.indexOf(p)].textContent = p.name;
     });
 
     return options;
 }
+
 
 function createProjectForm() {
     let prjHasForm = projectsSubContainer.querySelector("form") != null;
@@ -241,9 +293,9 @@ p2.setName('project 2');
 let t1 = taskList.createTask();
 let t2 = taskList.createTask();
 t1.setName('task from project 1');
-t1.setProject(p1.name);
+t1.setProjectID(p1.id);
 t2.setName('task from project 2');
-t2.setProject(p2.name);
+t2.setProjectID(p2.id);
 console.log(projectList.getList());
 console.log(taskList.getList());
 
