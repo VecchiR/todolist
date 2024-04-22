@@ -19,13 +19,9 @@ export class Task {
         this.name = name;
     }
 
-    setProject(prj) {
-        this.project = prj;
+    setProjectID(projectID) {
+        this.projectID = projectID;
     }
-
-    // setProjectByID(prjID) {
-    //     this.projectID = prjID;
-    // }
 
     setDate() {
         this.date = 'date set';
