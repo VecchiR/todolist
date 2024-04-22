@@ -74,3 +74,8 @@ function updateTaskList () {
 
 
 ou seja: os filtros e projetos precisam de EVENT HANDLERS
+
+
+
+hey -> o projectID nao precisa estar no html da task. Com o task ID conseguimos dar um
+'filter' ou achar o projectID la na taskList quando for necessário

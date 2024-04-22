@@ -26,8 +26,9 @@ tasksContainer.addEventListener('click', (e) => {
         e.preventDefault();
         let newTask = taskList.createTask();
         assingTaskValues(newTask);
-        createTaskElement(newTask);
-        removeForm(tasksContainer);
+
+        updateTasks(mainLabel.getAttribute('viewMode'));
+
     }
 });
 
@@ -78,42 +79,56 @@ function createProjectElement(p) {
     projectsSubContainer.appendChild(project);
 }
 
-function openProjectView(prj) {
-    renderMainContent(prj, 'project');
-    console.log(prj);
+function openProjectView(prj) { //posso remover isso, mesclando direto com o 
+//renderMainContent (talvez "showTasks? algo assim?")
+//de maneira que possa usar a mesma função pra project e filter
+
+    renderMainContent('project', prj);
 }
 
-function renderMainContent(arg, viewMode) {
+function renderMainContent(viewMode, arg) {
     mainLabel.textContent = arg.name;
     mainLabel.setAttribute('viewMode', viewMode);
-
-    let tasks = getTasksToShow(arg, viewMode);
-    updateTasks(tasks, viewMode);
+    mainLabel.setAttribute('prjOrFilterID', arg.id);
+    updateTasks(viewMode, arg);
 }
 
-function getTasksToShow(arg, mode) {
-    if (mode === 'project') {
+function getTasksToShow(viewMode, arg) {
+    if (viewMode === 'project') {
         return taskList.getList().filter((t) => t.projectID === arg.id);
     }
 
-    else if (mode === 'filter') {
+    else if (viewMode === 'filter') {
         return ;
     }
 }
 
-/*function updateTasks(tasks, mode) {
+function updateTasks(viewMode, arg) {
+
+    if (!arg) {
+        if (viewMode === 'project') {
+            arg = projectList.getList().find((p) => p.id === mainLabel.getAttribute('prjOrFilterID'));
+        }
+
+        else if (viewMode === 'filter') {
+
+        }
+    }
+
+    let tasks = getTasksToShow(viewMode, arg);
+
 
     //remove any content from container
     tasksContainer.replaceChildren();
 
-    //add tasks from [tasks to show] as elements
-    [tasks to show].forEach((t) => createTaskElement(t, mode));
+    //add tasks as elements
+    tasks.forEach((t) => createTaskElement(t, viewMode));
 
-}*/
+}
 
 
 
-function createTaskElement(t, mode) {
+function createTaskElement(t, viewMode) {
 
     const task = document.createElement("div");
     task.classList.add("task");
@@ -141,7 +156,7 @@ function createTaskElement(t, mode) {
     date.classList.add("date");
     date.textContent = t.date;
 
-    if (mode === 'filter') {
+    if (viewMode === 'filter') {
         const project = document.createElement("div");
         project.classList.add("project");
         project.textContent = t.project;
@@ -156,7 +171,7 @@ function createTaskElement(t, mode) {
     task.appendChild(checkbox);
     task.appendChild(taskText);
     task.appendChild(date);
-    if (mode === 'filter') { task.appendChild(project) };
+    if (viewMode === 'filter') { task.appendChild(project) };
     task.appendChild(urgent);
     task.appendChild(contextMenu);
 
