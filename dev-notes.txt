@@ -23,9 +23,9 @@ OK - construir as regras de "tasks to show" de cada um
 OK - implementar datas corretamente
 OK - default view = all tasks
 OK - on project view: dont show project
+OK - on filter view: show project on task 
+OK - on project view: when adding task, projectSelect -> deixa o project selecionado
 
-- on project view: when adding task, projectSelect -> deixa o project selecionado
-- on filter view: show project on task 
 - implementar "urgent"
 - implementar checkbox
 - mostar texo "no tasks" para FILTER VIEW se nao tem nada que corresponde ao criterio

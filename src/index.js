@@ -18,7 +18,10 @@ const projectsSubContainer = document.querySelector('.projects-subcontainer');
 
 const filtersContainer = document.querySelector('.filters-container');
 
-addTaskBtn.addEventListener('click', createTaskForm);
+addTaskBtn.addEventListener('click', () => {
+    createTaskForm(mainLabel.getAttribute('viewMode'));
+});
+
 addProjectBtn.addEventListener('click', createProjectForm);
 
 tasksContainer.addEventListener('click', (e) => {
@@ -214,7 +217,7 @@ function removeForm(container) {
     container.querySelector('form').remove();
 }
 
-function createTaskForm() {
+function createTaskForm(viewMode) {
     let taskHasForm = tasksContainer.querySelector("form") != null;
     let prjHasForm = projectsSubContainer.querySelector("form") != null;
 
@@ -245,7 +248,7 @@ function createTaskForm() {
         projectSelect.id = "projectSelect";
 
         //create and append options on select element
-        const projectOptions = createProjectOptions(projectSelect);
+        const projectOptions = createProjectOptions();
         projectOptions.forEach(x => projectSelect.appendChild(x));
 
         //set the select element's projectID attribute to be the same as the selected option's
@@ -274,7 +277,7 @@ function createTaskForm() {
     }
 }
 
-function createProjectOptions(parent) {
+function createProjectOptions() {
     const list = projectList.getList();
     const options = [];
 
@@ -286,6 +289,9 @@ function createProjectOptions(parent) {
         options[(list.indexOf(p)) + 1] = document.createElement('option');
         options[(list.indexOf(p)) + 1].setAttribute('projectID', p.id);
         options[(list.indexOf(p)) + 1].textContent = p.name;
+        if (options[(list.indexOf(p)) + 1].getAttribute('projectID') === mainLabel.getAttribute('prjOrFilterID')) {
+            options[(list.indexOf(p)) + 1].selected = true;
+        }
     });
 
     return options;
