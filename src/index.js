@@ -30,11 +30,7 @@ tasksContainer.addEventListener('click', (e) => {
         e.preventDefault();
         let newTask = taskList.createTask();
         assingTaskValues(newTask);
-        test(newTask);
-
         updateTasks(mainLabel.getAttribute('viewMode'));
-
-
     }
 });
 
@@ -160,29 +156,6 @@ function updateTasks(viewMode, arg) {
     tasks.forEach((t) => createTaskElement(t, viewMode));
 }
 
-/*function getTasksByFilterCriteria(f) {  NAO GOSTEI ASSIM, VOU TENTAR ARMAZENAR ISSO NA FILTERLIST
-    if (f.name === 'Inbox') {
-
-    }
-
-    else if (f.name === 'Today') {
-
-    }
-
-    else if (f.name === 'Next 7 Days') {
-
-    }
-
-    else if (f.name === 'Important') {
-
-    }
-
-    else if (f.name === 'All Tasks') {
-        
-    }
-
-}*/
-
 function createTaskElement(t, viewMode) {
 
     const task = document.createElement("div");
@@ -216,7 +189,7 @@ function createTaskElement(t, viewMode) {
     if (viewMode === 'filter') {
         project = document.createElement("div");
         project.classList.add("project");
-        project.textContent = t.project;
+        project.textContent = projectList.getList()[projectList.getList().findIndex((p) => p.id === t.projectID)].name;
     }
 
     const urgent = document.createElement("div");
@@ -318,19 +291,6 @@ function createProjectOptions(parent) {
     return options;
 }
 
-/*function createProjectOptions(parent) {
-    const list = projectList.getList();
-    const options = [];
-
-    list.forEach(p => {
-        options[(list.indexOf(p))] = document.createElement('option');
-        options[(list.indexOf(p))].setAttribute ('projectID', p.id);
-        options[(list.indexOf(p))].textContent = p.name;
-    });
-
-    return options;
-}*/
-
 function createProjectForm() {
     let prjHasForm = projectsSubContainer.querySelector("form") != null;
     let taskHasForm = tasksContainer.querySelector("form") != null;
@@ -391,14 +351,10 @@ t2.setProjectID(p2.id);
 console.log('projectList at start: ', projectList.getList());
 console.log('taskList at start: ', taskList.getList());
 
-renderFilters();
-updateProjects();
-openFilterView(filterList.getList()[filterList.getList().findIndex((x) => x.name === 'All Tasks')]);
-
 function test(t) {
     let now = new Date();
     let today = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
-    let next8days = add(today, {days: 8});
+    let next8days = add(today, { days: 8 });
     console.log({
         filteredList: filterList.getList()[filterList.getList().findIndex((x) => x.name === 'Today')].filterTasks(),
         now: now,
@@ -408,12 +364,9 @@ function test(t) {
     });
 }
 
-
-
-// console.log('filter at start: ', filterList.getList()
-// [filterList.getList().findIndex((x) => x.name === 'Today')]
-//     .filterTasks());
-
+renderFilters();
+updateProjects();
+openFilterView(filterList.getList()[filterList.getList().findIndex((x) => x.name === 'All Tasks')]);
 
 
 
