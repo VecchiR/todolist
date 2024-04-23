@@ -33,7 +33,7 @@ tasksContainer.addEventListener('click', (e) => {
         e.preventDefault();
         let newTask = taskList.createTask();
         assingTaskValues(newTask);
-        updateTasks(mainLabel.getAttribute('viewMode'));
+        updateTasks();
     }
 });
 
@@ -139,6 +139,10 @@ function getTasksToShow(viewMode, arg) {
 
 function updateTasks(viewMode, arg) {
 
+    if (!viewMode) {
+        viewMode = mainLabel.getAttribute('viewMode');
+    }
+
     if (!arg) {
         if (viewMode === 'project') {
             arg = projectList.getList().find((p) => p.id === mainLabel.getAttribute('prjOrFilterID'));
@@ -199,6 +203,7 @@ function createTaskElement(t, viewMode) {
     important.classList.add("important");
     important.addEventListener('click', () => {
         t.setImportant();
+        updateTasks();
         console.log(t);
     });
 
