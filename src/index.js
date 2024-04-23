@@ -1,4 +1,4 @@
-import { Entry, Task, Project, ListMethods, taskList, projectList } from "./logics";
+import { Entry, Task, Project, ListMethods, taskList, projectList, filterList } from "./logics";
 //import { renderInitialScreen } from './DOMstuff';
 import './style.css';
 
@@ -315,6 +315,8 @@ console.log(projectList.getList());
 console.log(taskList.getList());
 
 updateProjects();
+
+console.log(filterList.getList());
 
 
 //-------------------------------- end of DOMstuff -----------------------------------------------//

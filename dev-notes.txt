@@ -10,70 +10,27 @@ const pageRenderer = (function () {
 function renderPage() {   
 
     "modular" -> recarregar certas porçoes da pagina de acordo com 
-    o que foi feito
-        dependendo da ação, nao precisa recarregar o main-content OU
-        a sidebar
+  
     
-    render sidebar:
-        filtros->
-        projestos-> projectList (all entries)
-    
-    render main-content:
-        quando carrega a pagina
-            label-> default (all tasks)
-            tasks-> taskList (all entries)
-
-        quando clica em algum filtro
-            label-> filtro selecionado
-            tasks-> depende da condição do filtro
-
-        quando clica em projeto
-            label-> projeto selecionado (pesquisa pelo ID na projectList -> retrieve project.name)
-            tasks-> na taskList, procura por tasks cujo task.project === retrive project.name(project.id) ->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> NA VERDADE, ADICIONAR PROJECT ID COMO PROPERTY DA TASK!
-
-        quando cria/deleta projeto
-        quando cria/deleta task
-            label-> mantem selecionado o projeto/filtro que já tava
-            tasks->tambem mantem (adiciona)
-
+        render sidebar -> só precisa quando ABRE A PAGINA ou ADD/REMOVE Projeto 
+        
+        render main-content -> sempre
 }
 
-
-
-alem disso, não ta passando os id's pra pagina né
-
-
-renderPage
-    render sidebar
-        render filter list
-        render project list
-    render main content
-        render label DEFAULT (ALL TASKS)
-        render main content (DEFAULT ALL TASKS)
-
-
-ou seja, o main content depende do label
-o label depende 
-    se inicio -> all tasks
-    o que foi clicado
-        filter?
-        projecto?
-
-
-function updateTaskList () {
-
-    remove old content
-
-    criar um array de quais tasks mostrar
-        DEPENDE DO FILTRO OU PROJETO    
-
-    cria os elementos 
-        DEPENDE SE É FILTRO OU PROJETO
-        (se terá o campo do projeto)
-}
-
-
-ou seja: os filtros e projetos precisam de EVENT HANDLERS
+- criar lista de filtros
+- fazer eles clicaveis pra abrir "filter view"
+- construir as regras de "tasks to show" de cada um
+- implementar datas corretamente
+- implementar "urgent"
+- implementar checkbox
+- mostar texo "no tasks" para FILTER VIEW se nao tem nada que corresponde ao criterio
+- default view = all tasks
+- 'context menu' -> 3 pontinhos que vao abrir o "edit" e "delete" -> reabre o form de project ou task
+- passar tudo o que for DOMstuff para o modulo certo
+- implementar local storage (json) = basicamente salvar tasklist e projectlist 
+- permitir escolher (e salvar) qual a vista default (default = all tasks, reabrir onde parou, selecionar projeto/filtro)
+- implementar (e salvar) light/dark mode
+- implementar CSS
 
 
 

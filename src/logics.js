@@ -95,3 +95,30 @@ export const projectList = (function () {
     }
 })();
 
+export const filterList = (function () {
+
+    const listMethods = new ListMethods();
+    const list = [];
+    const createFilter = (name) => {
+        let filter = {};
+        filter.name = name;
+        listMethods.addToList(list, filter);
+        return filter;
+    }
+    const getList = () => {
+        return listMethods.getList(list);
+    }
+
+    createFilter('Inbox');
+    createFilter('Today');
+    createFilter('Next 7 Days');
+    createFilter('Important');
+    createFilter('All Tasks');
+
+    return {
+        listMethods,
+        getList,
+    }
+
+})();
+
