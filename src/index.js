@@ -393,6 +393,7 @@ console.log('taskList at start: ', taskList.getList());
 
 renderFilters();
 updateProjects();
+openFilterView(filterList.getList()[filterList.getList().findIndex((x) => x.name === 'All Tasks')]);
 
 function test(t) {
     let now = new Date();
