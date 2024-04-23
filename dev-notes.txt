@@ -17,10 +17,11 @@ function renderPage() {
         render main-content -> sempre
 }
 
-- criar lista de filtros
-- fazer eles clicaveis pra abrir "filter view"
-- construir as regras de "tasks to show" de cada um
-- implementar datas corretamente
+OK - criar lista de filtros
+OK - fazer eles clicaveis pra abrir "filter view"
+OK - construir as regras de "tasks to show" de cada um
+OK - implementar datas corretamente
+
 - implementar "urgent"
 - implementar checkbox
 - mostar texo "no tasks" para FILTER VIEW se nao tem nada que corresponde ao criterio

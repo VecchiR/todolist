@@ -1,3 +1,6 @@
+import { compareAsc, format, add, isBefore, isEqual, isAfter, toDate } from "date-fns";
+
+
 export class Entry {
     generateId = () => {
         return Math.random().toString(36).substring(2) +
@@ -23,13 +26,19 @@ export class Task {
         this.projectID = projectID;
     }
 
-    setDate() {
-        this.date = 'date set';
+    setDate(d) {
+        let date = new Date(d.getUTCFullYear(), d.getUTCMonth(),d.getUTCDate());
+        this.date = date;
     }
 
     setDescription(description) {
         this.description = description;
     }
+
+    setImportant() {
+        this.important = !this.important;
+    }
+
 }
 
 export class Project {
@@ -95,13 +104,51 @@ export const projectList = (function () {
     }
 })();
 
+
+const getAllTasks = function () {
+    let tasks;
+    tasks = taskList.getList();
+    return tasks;
+};
+
+const getInboxTasks = function () {
+    let tasks;
+    tasks = taskList.getList().filter((t) => t.projectID === '' || t.projectID === undefined);
+    return tasks;
+};
+
+const getImportantTasks = function () {
+    let tasks;
+    tasks = taskList.getList().filter((t) => t.important === true);
+    return tasks;
+};
+
+const getTodayTasks = function () {
+    let tasks;
+    let now = new Date();
+    let today = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+    tasks = taskList.getList().filter((t) => isEqual(t.date, today) === true);
+    return tasks;
+};
+
+const get7DaysTasks = function () {
+    let tasks;
+    let now = new Date();
+    let today = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+    let next8days = add(today, {days: 8});
+    tasks = taskList.getList().filter((t) => isAfter(t.date, today) === true && isBefore(t.date, next8days));
+    return tasks;
+};
+
+
 export const filterList = (function () {
 
     const listMethods = new ListMethods();
     const list = [];
-    const createFilter = (name) => {
+    const createFilter = (name, filterMethod) => {
         let filter = {};
         filter.name = name;
+        filter.filterTasks = filterMethod;
         listMethods.addToList(list, filter);
         return filter;
     }
@@ -109,11 +156,11 @@ export const filterList = (function () {
         return listMethods.getList(list);
     }
 
-    createFilter('Inbox');
-    createFilter('Today');
-    createFilter('Next 7 Days');
-    createFilter('Important');
-    createFilter('All Tasks');
+    createFilter('Inbox', getInboxTasks);
+    createFilter('Today', getTodayTasks);
+    createFilter('Next 7 Days', get7DaysTasks);
+    createFilter('Important', getImportantTasks);
+    createFilter('All Tasks', getAllTasks);
 
     return {
         listMethods,

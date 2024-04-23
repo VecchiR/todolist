@@ -1,6 +1,8 @@
 import { Entry, Task, Project, ListMethods, taskList, projectList, filterList } from "./logics";
 //import { renderInitialScreen } from './DOMstuff';
 import './style.css';
+import { add, format, isEqual, sub } from "date-fns";
+
 
 
 //I'm going to do the DOMstuff here (from here to the commented dashed line), then all of this should be
@@ -28,8 +30,10 @@ tasksContainer.addEventListener('click', (e) => {
         e.preventDefault();
         let newTask = taskList.createTask();
         assingTaskValues(newTask);
+        test(newTask);
 
         updateTasks(mainLabel.getAttribute('viewMode'));
+
 
     }
 });
@@ -55,7 +59,7 @@ function assingProjectValues(p) {
 function assingTaskValues(t) {
     t.setName(document.querySelector('input[name=task-name]').value);
     t.setDescription(document.querySelector('input[name=description]').value);
-    t.setDate(document.querySelector('input[name=date]').value);
+    t.setDate(document.querySelector('input[name=date]').valueAsDate);
     t.setProjectID(document.querySelector('select[name=projectSelect]').getAttribute('projectID'));
 }
 
@@ -99,16 +103,28 @@ function createFilterElement(f) {
 }
 
 function openProjectView(prj) { //posso remover isso, mesclando direto com o 
-//renderMainContent (talvez "showTasks? algo assim?")
-//de maneira que possa usar a mesma função pra project e filter
+    //renderMainContent (talvez "showTasks? algo assim?")
+    //de maneira que possa usar a mesma função pra project e filter
 
     renderMainContent('project', prj);
+}
+
+function openFilterView(filter) { //posso remover isso, mesclando direto com o 
+    //renderMainContent (talvez "showTasks? algo assim?")
+    //de maneira que possa usar a mesma função pra project e filter
+
+    renderMainContent('filter', filter);
 }
 
 function renderMainContent(viewMode, arg) {
     mainLabel.textContent = arg.name;
     mainLabel.setAttribute('viewMode', viewMode);
-    mainLabel.setAttribute('prjOrFilterID', arg.id);
+    if (viewMode === 'project') {
+        mainLabel.setAttribute('prjOrFilterID', arg.id);
+    }
+    else if (viewMode === 'filter') {
+        mainLabel.setAttribute('prjOrFilterID', arg.name);
+    }
     updateTasks(viewMode, arg);
 }
 
@@ -118,7 +134,7 @@ function getTasksToShow(viewMode, arg) {
     }
 
     else if (viewMode === 'filter') {
-        return ;
+        return arg.filterTasks();
     }
 }
 
@@ -130,7 +146,7 @@ function updateTasks(viewMode, arg) {
         }
 
         else if (viewMode === 'filter') {
-
+            arg = filterList.getList().find((f) => f.name === mainLabel.getAttribute('prjOrFilterID'));
         }
     }
 
@@ -142,10 +158,30 @@ function updateTasks(viewMode, arg) {
 
     //add tasks as elements
     tasks.forEach((t) => createTaskElement(t, viewMode));
-
 }
 
+/*function getTasksByFilterCriteria(f) {  NAO GOSTEI ASSIM, VOU TENTAR ARMAZENAR ISSO NA FILTERLIST
+    if (f.name === 'Inbox') {
 
+    }
+
+    else if (f.name === 'Today') {
+
+    }
+
+    else if (f.name === 'Next 7 Days') {
+
+    }
+
+    else if (f.name === 'Important') {
+
+    }
+
+    else if (f.name === 'All Tasks') {
+        
+    }
+
+}*/
 
 function createTaskElement(t, viewMode) {
 
@@ -175,8 +211,10 @@ function createTaskElement(t, viewMode) {
     date.classList.add("date");
     date.textContent = t.date;
 
+    let project;
+
     if (viewMode === 'filter') {
-        const project = document.createElement("div");
+        project = document.createElement("div");
         project.classList.add("project");
         project.textContent = t.project;
     }
@@ -267,15 +305,31 @@ function createProjectOptions(parent) {
     const list = projectList.getList();
     const options = [];
 
+    options[0] = document.createElement('option');
+    options[0].setAttribute('projectID', '');
+    options[0].textContent = '';
+
     list.forEach(p => {
-        options[list.indexOf(p)] = document.createElement('option');
-        options[list.indexOf(p)].setAttribute ('projectID', p.id);
-        options[list.indexOf(p)].textContent = p.name;
+        options[(list.indexOf(p)) + 1] = document.createElement('option');
+        options[(list.indexOf(p)) + 1].setAttribute('projectID', p.id);
+        options[(list.indexOf(p)) + 1].textContent = p.name;
     });
 
     return options;
 }
 
+/*function createProjectOptions(parent) {
+    const list = projectList.getList();
+    const options = [];
+
+    list.forEach(p => {
+        options[(list.indexOf(p))] = document.createElement('option');
+        options[(list.indexOf(p))].setAttribute ('projectID', p.id);
+        options[(list.indexOf(p))].textContent = p.name;
+    });
+
+    return options;
+}*/
 
 function createProjectForm() {
     let prjHasForm = projectsSubContainer.querySelector("form") != null;
@@ -334,14 +388,32 @@ t1.setName('task from project 1');
 t1.setProjectID(p1.id);
 t2.setName('task from project 2');
 t2.setProjectID(p2.id);
-console.log(projectList.getList());
-console.log(taskList.getList());
+console.log('projectList at start: ', projectList.getList());
+console.log('taskList at start: ', taskList.getList());
 
 renderFilters();
 updateProjects();
 
+function test(t) {
+    let now = new Date();
+    let today = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+    let next8days = add(today, {days: 8});
+    console.log({
+        filteredList: filterList.getList()[filterList.getList().findIndex((x) => x.name === 'Today')].filterTasks(),
+        now: now,
+        today: today,
+        next8days: next8days,
+        isTaskDateEqualToTOday: isEqual(t.date, today),
+    });
+}
 
-console.log(filterList.getList());
+
+
+// console.log('filter at start: ', filterList.getList()
+// [filterList.getList().findIndex((x) => x.name === 'Today')]
+//     .filterTasks());
+
+
 
 
 //-------------------------------- end of DOMstuff -----------------------------------------------//
