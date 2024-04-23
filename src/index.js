@@ -195,8 +195,12 @@ function createTaskElement(t, viewMode) {
         project.textContent = projectList.getList()[projectList.getList().findIndex((p) => p.id === t.projectID)].name;
     }
 
-    const urgent = document.createElement("div");
-    urgent.classList.add("urgent");
+    const important = document.createElement("div");
+    important.classList.add("important");
+    important.addEventListener('click', () => {
+        t.setImportant();
+        console.log(t);
+    });
 
     const contextMenu = document.createElement("div");
     contextMenu.classList.add("context-menu");
@@ -205,7 +209,7 @@ function createTaskElement(t, viewMode) {
     task.appendChild(taskText);
     task.appendChild(date);
     if (viewMode === 'filter') { task.appendChild(project) };
-    task.appendChild(urgent);
+    task.appendChild(important);
     task.appendChild(contextMenu);
 
     tasksContainer.appendChild(task);
