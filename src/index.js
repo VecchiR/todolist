@@ -14,6 +14,8 @@ const addProjectBtn = document.querySelector('.add-project');
 const tasksContainer = document.querySelector('.tasks-container');
 const projectsSubContainer = document.querySelector('.projects-subcontainer');
 
+const filtersContainer = document.querySelector('.filters-container');
+
 addTaskBtn.addEventListener('click', createTaskForm);
 addProjectBtn.addEventListener('click', createProjectForm);
 
@@ -77,6 +79,23 @@ function createProjectElement(p) {
     project.appendChild(contextMenu);
 
     projectsSubContainer.appendChild(project);
+}
+
+function createFilterElement(f) {
+    const filter = document.createElement("div");
+    filter.classList.add("filter");
+    filter.setAttribute("name", f.name);
+    filter.addEventListener('click', () => {
+        openFilterView(f);
+    });
+
+    const filterName = document.createElement("div");
+    filterName.classList.add("filter-name");
+    filterName.textContent = f.name;
+
+    filter.appendChild(filterName);
+
+    filtersContainer.appendChild(filter);
 }
 
 function openProjectView(prj) { //posso remover isso, mesclando direto com o 
@@ -290,6 +309,10 @@ function createProjectForm() {
     }
 }
 
+function renderFilters() {
+    //filtersContainer.replaceChildren();
+    filterList.getList().forEach((f) => createFilterElement(f));
+}
 
 function updateProjects() {
 
@@ -314,7 +337,9 @@ t2.setProjectID(p2.id);
 console.log(projectList.getList());
 console.log(taskList.getList());
 
+renderFilters();
 updateProjects();
+
 
 console.log(filterList.getList());
 
