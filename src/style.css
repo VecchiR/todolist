@@ -29,7 +29,7 @@ footer,
     grid-auto-flow: column;
 }
 
-.context-menu {
+.context-menu-button {
     width: 10px;
     border: 1px solid blue;
 }

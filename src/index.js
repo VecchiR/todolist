@@ -1,7 +1,7 @@
-import { Entry, Task, Project, ListMethods, taskList, projectList, filterList } from "./logics";
+import { taskList, projectList, filterList } from "./logics";
 //import { renderInitialScreen } from './DOMstuff';
 import './style.css';
-import { add, format, isEqual, sub } from "date-fns";
+import { add, format, isEqual } from "date-fns";
 
 
 
@@ -81,8 +81,9 @@ function createProjectElement(p) {
 
     const contextMenu = document.createElement("div");
     contextMenu.classList.add("context-menu");
-    contextMenu.addEventListener('click', () => {
+    contextMenu.addEventListener('click', (e) => {
         openContextMenu(p, project);
+        e.stopPropagation();
     });
 
     project.appendChild(projectName);
@@ -232,9 +233,11 @@ function createTaskElement(t, viewMode) {
     });
 
     const contextMenu = document.createElement("div");
-    contextMenu.classList.add("context-menu");
-    contextMenu.addEventListener('click', () => {
-        openContextMenu(t, task);
+    contextMenu.classList.add("context-menu-button");
+    contextMenu.addEventListener('click', (e) => {
+        if (!task.querySelector('.context-menu')) {
+            openContextMenu(t, task, e);
+        }
     });
 
     task.appendChild(checkbox);
@@ -254,12 +257,32 @@ function toggleSelected(icon) {
 
 
 
-function openContextMenu(obj, element) {
-    // console.log({objClass: obj.constructor.name, obj: obj, element: element,});
+function openContextMenu(obj, element, e) {
 
-    
-    
+    const ctxMenu = document.createElement('div');
+    ctxMenu.classList.add('context-menu');
+    const ctxEdit = document.createElement('div');
+    ctxEdit.textContent = "Edit";
+    const ctxDelete = document.createElement('div');
+    ctxDelete.textContent = "Delete";
 
+    ctxMenu.appendChild(ctxEdit);
+    ctxMenu.appendChild(ctxDelete);
+    element.appendChild(ctxMenu);
+
+    document.addEventListener('click', function (event) {
+        if (event.target === ctxEdit) {
+            console.log('edit me');
+        }
+
+        else if (event.target === ctxDelete) {
+            console.log('delete me');
+        }
+        ctxMenu.remove();
+
+    }, { once: true });
+
+    e.stopPropagation();
 }
 
 
