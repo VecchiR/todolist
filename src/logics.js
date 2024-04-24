@@ -140,6 +140,12 @@ const get7DaysTasks = function () {
     return tasks;
 };
 
+const getCompletedTasks = function () {
+    let tasks;
+    tasks = taskList.getList().filter((t) => t.complete === true);
+    return tasks;
+}
+
 
 export const filterList = (function () {
 
@@ -161,6 +167,7 @@ export const filterList = (function () {
     createFilter('Next 7 Days', get7DaysTasks);
     createFilter('Important', getImportantTasks);
     createFilter('All Tasks', getAllTasks);
+    createFilter('Completed Tasks', getCompletedTasks);
 
     return {
         listMethods,

@@ -172,6 +172,14 @@ function createTaskElement(t, viewMode) {
 
     const checkbox = document.createElement("div");
     checkbox.classList.add("checkbox");
+    checkbox.addEventListener('click', () => {
+        t.setCompleted();
+        updateTasks();
+        console.log(t);
+    });
+
+
+
 
     const taskText = document.createElement("div");
     taskText.classList.add("task-text");
