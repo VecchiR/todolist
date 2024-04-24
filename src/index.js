@@ -31,9 +31,13 @@ tasksContainer.addEventListener('click', (e) => {
 
     else if (e.target.type === 'submit') {
         e.preventDefault();
-        let newTask = taskList.createTask();
-        assingTaskValues(newTask);
-        updateTasks();
+
+        if (document.querySelector('input[name=task-name]').value) {
+            let newTask = taskList.createTask();
+            assingTaskValues(newTask);
+            updateTasks();
+        }
+
     }
 });
 
@@ -44,9 +48,11 @@ projectsSubContainer.addEventListener('click', (e) => {
 
     else if (e.target.type === 'submit') {
         e.preventDefault();
-        let newProject = projectList.createProject();
-        assingProjectValues(newProject);
-        updateProjects();
+        if (document.querySelector('input[name=project-name]').value) {    
+            let newProject = projectList.createProject();
+            assingProjectValues(newProject);
+            updateProjects();
+        }
     }
 });
 
