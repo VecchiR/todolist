@@ -28,3 +28,26 @@ footer,
     display: grid;
     grid-auto-flow: column;
 }
+
+.context-menu {
+    width: 10px;
+    border: 1px solid blue;
+}
+
+.important {
+    width: 10px;
+    border: 1px solid red;
+}
+
+.checkbox {
+    width: 10px;
+    border: 1px solid green;
+}
+
+.project {
+    display: flex;
+}
+
+.selected {
+    background-color: blueviolet;
+}

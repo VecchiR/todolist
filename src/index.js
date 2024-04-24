@@ -81,6 +81,9 @@ function createProjectElement(p) {
 
     const contextMenu = document.createElement("div");
     contextMenu.classList.add("context-menu");
+    contextMenu.addEventListener('click', () => {
+        openContextMenu(p, project);
+    });
 
     project.appendChild(projectName);
     project.appendChild(contextMenu);
@@ -169,10 +172,10 @@ function updateTasks(viewMode, arg) {
 }
 
 
-function noTasksToShow(){
+function noTasksToShow() {
     const text = document.createElement("div");
     text.classList.add("no-tasks-text");
-    text.textContent = 'Nothing to show here!'    
+    text.textContent = 'Nothing to show here!'
 
     tasksContainer.appendChild(text);
 }
@@ -188,14 +191,11 @@ function createTaskElement(t, viewMode) {
 
     const checkbox = document.createElement("div");
     checkbox.classList.add("checkbox");
+    if (t.complete) { toggleSelected(checkbox); }
     checkbox.addEventListener('click', () => {
         t.setCompleted();
         updateTasks();
-        console.log(t);
     });
-
-
-
 
     const taskText = document.createElement("div");
     taskText.classList.add("task-text");
@@ -225,14 +225,17 @@ function createTaskElement(t, viewMode) {
 
     const important = document.createElement("div");
     important.classList.add("important");
-    important.addEventListener('click', () => {
+    if (t.important) { toggleSelected(important); }
+    important.addEventListener('click', (e) => {
         t.setImportant();
         updateTasks();
-        console.log(t);
     });
 
     const contextMenu = document.createElement("div");
     contextMenu.classList.add("context-menu");
+    contextMenu.addEventListener('click', () => {
+        openContextMenu(t, task);
+    });
 
     task.appendChild(checkbox);
     task.appendChild(taskText);
@@ -244,6 +247,21 @@ function createTaskElement(t, viewMode) {
     tasksContainer.appendChild(task);
 
 }
+
+function toggleSelected(icon) {
+    icon.classList.toggle("selected");
+}
+
+
+
+function openContextMenu(obj, element) {
+    // console.log({objClass: obj.constructor.name, obj: obj, element: element,});
+
+    
+    
+
+}
+
 
 function getTaskProjectName(t) {
     let foundProject = projectList.getList()[projectList.getList().findIndex((p) => p.id === t.projectID)];
@@ -391,8 +409,10 @@ t1.setName('task from project 1');
 t1.setProjectID(p1.id);
 t2.setName('task from project 2');
 t2.setProjectID(p2.id);
+/*
 console.log('projectList at start: ', projectList.getList());
 console.log('taskList at start: ', taskList.getList());
+*/
 
 function test(t) {
     let now = new Date();
