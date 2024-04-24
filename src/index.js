@@ -31,13 +31,11 @@ tasksContainer.addEventListener('click', (e) => {
 
     else if (e.target.type === 'submit') {
         e.preventDefault();
-
         if (document.querySelector('input[name=task-name]').value) {
             let newTask = taskList.createTask();
             assingTaskValues(newTask);
             updateTasks();
         }
-
     }
 });
 
@@ -48,7 +46,7 @@ projectsSubContainer.addEventListener('click', (e) => {
 
     else if (e.target.type === 'submit') {
         e.preventDefault();
-        if (document.querySelector('input[name=project-name]').value) {    
+        if (document.querySelector('input[name=project-name]').value) {
             let newProject = projectList.createProject();
             assingProjectValues(newProject);
             updateProjects();
@@ -165,9 +163,21 @@ function updateTasks(viewMode, arg) {
     //remove any content from container
     tasksContainer.replaceChildren();
 
-    //add tasks as elements
-    tasks.forEach((t) => createTaskElement(t, viewMode));
+    (tasks.length === 0 && viewMode === 'filter') ? //check if there are tasks to show
+        noTasksToShow() : //If not, write that there aren't any
+        tasks.forEach((t) => createTaskElement(t, viewMode)); //if yes, render them 
 }
+
+
+function noTasksToShow(){
+    const text = document.createElement("div");
+    text.classList.add("no-tasks-text");
+    text.textContent = 'Nothing to show here!'    
+
+    tasksContainer.appendChild(text);
+}
+
+
 
 function createTaskElement(t, viewMode) {
 
@@ -237,8 +247,8 @@ function createTaskElement(t, viewMode) {
 
 function getTaskProjectName(t) {
     let foundProject = projectList.getList()[projectList.getList().findIndex((p) => p.id === t.projectID)];
-    return foundProject ? foundProject.name : '';     
-}   
+    return foundProject ? foundProject.name : '';
+}
 
 function removeForm(container) {
     container.querySelector('form').remove();
