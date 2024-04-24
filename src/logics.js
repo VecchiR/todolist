@@ -107,19 +107,19 @@ export const projectList = (function () {
 
 const getAllTasks = function () {
     let tasks;
-    tasks = taskList.getList();
+    tasks = taskList.getList().filter((t) => !t.complete);
     return tasks;
 };
 
 const getInboxTasks = function () {
     let tasks;
-    tasks = taskList.getList().filter((t) => t.projectID === '' || t.projectID === undefined);
+    tasks = taskList.getList().filter((t) => ((t.projectID === '' || t.projectID === undefined) && !t.complete));
     return tasks;
 };
 
 const getImportantTasks = function () {
     let tasks;
-    tasks = taskList.getList().filter((t) => t.important === true);
+    tasks = taskList.getList().filter((t) => t.important && !t.complete);
     return tasks;
 };
 
@@ -127,7 +127,7 @@ const getTodayTasks = function () {
     let tasks;
     let now = new Date();
     let today = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
-    tasks = taskList.getList().filter((t) => isEqual(t.date, today) === true);
+    tasks = taskList.getList().filter((t) => isEqual(t.date, today) && !t.complete);
     return tasks;
 };
 
@@ -136,13 +136,13 @@ const get7DaysTasks = function () {
     let now = new Date();
     let today = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
     let next8days = add(today, {days: 8});
-    tasks = taskList.getList().filter((t) => isAfter(t.date, today) === true && isBefore(t.date, next8days));
+    tasks = taskList.getList().filter((t) => ((isAfter(t.date, today) && isBefore(t.date, next8days)) && !t.complete));
     return tasks;
 };
 
 const getCompletedTasks = function () {
     let tasks;
-    tasks = taskList.getList().filter((t) => t.complete === true);
+    tasks = taskList.getList().filter((t) => t.complete);
     return tasks;
 }
 

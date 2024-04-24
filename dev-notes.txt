@@ -26,15 +26,17 @@ OK - on project view: dont show project
 OK - on filter view: show project on task 
 OK - on project view: when adding task, projectSelect -> deixa o project selecionado
 OK - implementar "setImportant"
+OK - implementar checkbox
 
-- implementar checkbox
+- não mostrar completed tasks (exceto o filter de completed)
 - mostar texo "no tasks" para FILTER VIEW se nao tem nada que corresponde ao criterio
 - 'context menu' -> 3 pontinhos que vao abrir o "edit" e "delete" -> reabre o form de project ou task
 - passar tudo o que for DOMstuff para o modulo certo
 - implementar local storage (json) = basicamente salvar tasklist e projectlist 
 - permitir escolher (e salvar) qual a vista default (default = all tasks, reabrir onde parou, selecionar projeto/filtro)
-- implementar (e salvar) light/dark mode
 - implementar CSS
+- implementar (e salvar) light/dark mode
+- implementar e salvar quais filters mostrar na sidebar 
 
 
 

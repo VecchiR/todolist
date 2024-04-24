@@ -204,7 +204,7 @@ function createTaskElement(t, viewMode) {
     if (viewMode === 'filter') {
         project = document.createElement("div");
         project.classList.add("project");
-        project.textContent = projectList.getList()[projectList.getList().findIndex((p) => p.id === t.projectID)].name;
+        project.textContent = getTaskProjectName(t);
     }
 
     const important = document.createElement("div");
@@ -229,6 +229,10 @@ function createTaskElement(t, viewMode) {
 
 }
 
+function getTaskProjectName(t) {
+    let foundProject = projectList.getList()[projectList.getList().findIndex((p) => p.id === t.projectID)];
+    return foundProject ? foundProject.name : '';     
+}   
 
 function removeForm(container) {
     container.querySelector('form').remove();
