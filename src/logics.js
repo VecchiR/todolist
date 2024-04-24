@@ -27,8 +27,10 @@ export class Task {
     }
 
     setDate(d) {
-        let date = new Date(d.getUTCFullYear(), d.getUTCMonth(),d.getUTCDate());
-        this.date = date;
+        if (d) {
+            let date = new Date(d.getUTCFullYear(), d.getUTCMonth(),d.getUTCDate());
+            this.date = date;
+        }
     }
 
     setDescription(description) {

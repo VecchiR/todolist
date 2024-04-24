@@ -28,6 +28,7 @@ OK - on project view: when adding task, projectSelect -> deixa o project selecio
 OK - implementar "setImportant"
 OK - implementar checkbox
 
+- require task name to create task
 - não mostrar completed tasks (exceto o filter de completed)
 - mostar texo "no tasks" para FILTER VIEW se nao tem nada que corresponde ao criterio
 - 'context menu' -> 3 pontinhos que vao abrir o "edit" e "delete" -> reabre o form de project ou task
