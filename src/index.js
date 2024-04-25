@@ -308,8 +308,11 @@ function contextDelete(obj) {
         updateTasks();
     }
     else if (obj.constructor.name === 'Project') {
+        let tasksToClean = getTasksToShow('project', obj);
+        tasksToClean.forEach((t) => t.setProjectID(''));
         projectList.removeFromList(obj);
         updateProjects();
+        updateTasks();
     }
 }
 
