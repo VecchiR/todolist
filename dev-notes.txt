@@ -42,8 +42,8 @@ OK - context -> se tem um form aberto ao clicar, fecha
 OK - task context -> edit: show form
 OK - task context edit -> remove task (from view only)
 OK - if cancel, updateTasks (já remove form)
+OK - only go to default view IF THE PROJECT SHOWN IS DELETED. If p1 is showing and p2 is deleted, keep p1 showing
 
-- only go to default view IF THE PROJECT SHOWN IS DELETED. If p1 is showing and p2 is deleted, keep p1 showing
 - task contextEdit -> get project
 - task cotextEdit -> get date on date picker
 - implementar prj context Edit

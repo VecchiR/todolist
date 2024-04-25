@@ -328,9 +328,13 @@ function contextDelete(obj) {
         tasksToClean.forEach((t) => t.setProjectID(''));
         projectList.removeFromList(obj);
         updateProjects();
-        if (mainLabel.getAttribute('viewMode') === 'project') {
+
+        //check if the project being deleted is active (if the user is viewing it's tasks)
+        if (mainLabel.getAttribute('prjOrFilterID') === obj.id) { 
+            //if yes, revert to the default view
             openFilterView(filterList.getDefault());
         }
+        
         updateTasks();
     }
 }
