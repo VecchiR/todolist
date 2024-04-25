@@ -37,6 +37,7 @@ tasksContainer.addEventListener('click', (e) => {
             updateTasks();
         }
     }
+
 });
 
 projectsSubContainer.addEventListener('click', (e) => {
@@ -97,6 +98,9 @@ function createProjectElement(p) {
             document.querySelector('.context-menu').remove();
         }
         openContextMenu(p, project, e);
+        if (document.querySelector('form')) {
+            document.querySelector('form').remove();
+        }
     });
 
     project.appendChild(projectName);
@@ -252,6 +256,9 @@ function createTaskElement(t, viewMode) {
             document.querySelector('.context-menu').remove();
         }
         openContextMenu(t, task, e);
+        if (document.querySelector('form')) {
+            document.querySelector('form').remove();
+        }
 
 
     });
