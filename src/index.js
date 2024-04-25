@@ -296,11 +296,11 @@ function openContextMenu(obj, element, e) {
 
     document.addEventListener('click', function (event) {
         if (event.target === ctxEdit) {
-            contextEdit(obj);
+            contextEdit(obj, element);
         }
 
         else if (event.target === ctxDelete) {
-            contextDelete(obj);
+            contextDelete(obj, element);
         }
 
         ctxMenu.remove();
@@ -310,8 +310,9 @@ function openContextMenu(obj, element, e) {
     e.stopPropagation();
 }
 
-function contextEdit(obj) {
+function contextEdit(obj, element) {
     if (obj.constructor.name === 'Task') {
+        element.remove();
         createTaskForm(obj);
     }
 
