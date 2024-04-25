@@ -31,7 +31,9 @@ OK - não mostrar completed tasks (exceto o filter de completed)
 OK - require task name to create task (e projects tb)
 OK - mostar texo "no tasks" para FILTER VIEW se nao tem nada que corresponde ao criterio
 OK - context menu -> 3 pontinhos que vao abrir o "edit" e "delete"
+OK - fix: dá pra abrir 2 context menus se forem em tasks diferentes
 
+- aplicar logica de context menu para projects tambem
 - context -> delete: remove a task/project da lista e update UI
 - context -> edit: transforma o element no form
 - passar tudo o que for DOMstuff para o modulo certo

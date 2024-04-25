@@ -80,7 +80,7 @@ function createProjectElement(p) {
 
 
     const contextMenu = document.createElement("div");
-    contextMenu.classList.add("context-menu");
+    contextMenu.classList.add("context-menu-button");
     contextMenu.addEventListener('click', (e) => {
         openContextMenu(p, project);
         e.stopPropagation();
@@ -235,9 +235,12 @@ function createTaskElement(t, viewMode) {
     const contextMenu = document.createElement("div");
     contextMenu.classList.add("context-menu-button");
     contextMenu.addEventListener('click', (e) => {
-        if (!task.querySelector('.context-menu')) {
-            openContextMenu(t, task, e);
+        if (document.querySelector('.context-menu')) {
+            document.querySelector('.context-menu').remove();
         }
+        openContextMenu(t, task, e);
+
+
     });
 
     task.appendChild(checkbox);
