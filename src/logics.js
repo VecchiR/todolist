@@ -62,6 +62,10 @@ export class ListMethods {
     addToList = function (list, entry) {
         list.push(entry);
     }
+
+    removeFromList = function (list, entry) {
+        list.splice(list.indexOf(entry), 1);
+    }
 }
 
 export const taskList = (function () {
@@ -80,10 +84,15 @@ export const taskList = (function () {
         return listMethods.getList(list);
     }
 
+    const removeFromList = (task) => {
+        listMethods.removeFromList(list, task);
+    }
+
     return {
         listMethods,
         createTask,
         getList,
+        removeFromList,
     }
 })();
 
@@ -99,10 +108,15 @@ export const projectList = (function () {
         return listMethods.getList(list);
     }
 
+    const removeFromList = (prj) => {
+        listMethods.removeFromList(list, prj);
+    }
+
     return {
         listMethods,
         createProject,
         getList,
+        removeFromList,
     }
 })();
 

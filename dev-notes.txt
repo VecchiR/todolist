@@ -33,8 +33,12 @@ OK - mostar texo "no tasks" para FILTER VIEW se nao tem nada que corresponde ao 
 OK - context menu -> 3 pontinhos que vao abrir o "edit" e "delete"
 OK - fix: dá pra abrir 2 context menus se forem em tasks diferentes
 OK - aplicar logica de context menu para projects tambem
+OK - context -> delete: remove a task/project da lista e update UI
+OK - ao deletar o projeto, NAO É PRA ABRIR project view
 
-- context -> delete: remove a task/project da lista e update UI
+- se deletar o projeto, tem que remover o projeto de todas as tasks
+- context -> se tem um form aberto ao clicar, fecha
+- se deletar todos os projetos, abre o default view
 - context -> edit: transforma o element no form
 - passar tudo o que for DOMstuff para o modulo certo
 - implementar local storage (json) = basicamente salvar tasklist e projectlist 

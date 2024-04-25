@@ -66,12 +66,23 @@ function assingTaskValues(t) {
     t.setProjectID(document.querySelector('select[name=projectSelect]').getAttribute('projectID'));
 }
 
+
 function createProjectElement(p) {
     const project = document.createElement("div");
     project.classList.add("project");
     project.setAttribute("projectID", p.id);
-    project.addEventListener('click', () => {
-        openProjectView(p);
+    project.addEventListener('click', (e) => {
+        let ctxOptions = document.querySelectorAll('div.context-menu > div');
+        let found = false;
+        ctxOptions.forEach((x) => {
+            if (x === e.target) {
+                found = true;
+                return;
+            }
+        })
+        if (!found) {
+            openProjectView(p);
+        }
     });
 
     const projectName = document.createElement("div");
@@ -281,13 +292,25 @@ function openContextMenu(obj, element, e) {
         }
 
         else if (event.target === ctxDelete) {
-            console.log('delete me');
+            contextDelete(obj);
         }
+
         ctxMenu.remove();
 
     }, { once: true });
 
     e.stopPropagation();
+}
+
+function contextDelete(obj) {
+    if (obj.constructor.name === 'Task') {
+        taskList.removeFromList(obj);
+        updateTasks();
+    }
+    else if (obj.constructor.name === 'Project') {
+        projectList.removeFromList(obj);
+        updateProjects();
+    }
 }
 
 
