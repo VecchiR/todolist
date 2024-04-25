@@ -19,7 +19,8 @@ const projectsSubContainer = document.querySelector('.projects-subcontainer');
 const filtersContainer = document.querySelector('.filters-container');
 
 addTaskBtn.addEventListener('click', () => {
-    createTaskForm(mainLabel.getAttribute('viewMode'));
+    // createTaskForm(mainLabel.getAttribute('viewMode'));
+    createTaskForm();
 });
 
 addProjectBtn.addEventListener('click', createProjectForm);
@@ -295,7 +296,7 @@ function openContextMenu(obj, element, e) {
 
     document.addEventListener('click', function (event) {
         if (event.target === ctxEdit) {
-            console.log('edit me');
+            contextEdit(obj);
         }
 
         else if (event.target === ctxDelete) {
@@ -307,6 +308,13 @@ function openContextMenu(obj, element, e) {
     }, { once: true });
 
     e.stopPropagation();
+}
+
+function contextEdit(obj) {
+    if (obj.constructor.name === 'Task') {
+        createTaskForm(obj);
+    }
+
 }
 
 function contextDelete(obj) {
@@ -336,7 +344,7 @@ function removeForm(container) {
     container.querySelector('form').remove();
 }
 
-function createTaskForm(viewMode) {
+function createTaskForm(existingTask) {
     let taskHasForm = tasksContainer.querySelector("form") != null;
     let prjHasForm = projectsSubContainer.querySelector("form") != null;
 
@@ -384,6 +392,13 @@ function createTaskForm(viewMode) {
         const cancelButton = document.createElement("button");
         cancelButton.type = "button";
         cancelButton.textContent = "Cancel";
+
+
+        if (existingTask) {
+            taskNameInput.value = existingTask.name;
+            descriptionInput.value = existingTask.description;
+            dateInput.value = existingTask.date;
+        }
 
         form.appendChild(taskNameInput);
         form.appendChild(descriptionInput);

@@ -39,8 +39,13 @@ OK - se deletar o projeto, tem que remover o projeto de todas as tasks
 OK - set "All Tasks" as default view
 OK - ao deletar um projeto aberto, troca para o default view
 OK - context -> se tem um form aberto ao clicar, fecha
+OK - task context -> edit: show form
 
-- context -> edit: transforma o element no form
+- task context edit -> remove task (from view only)
+- if cancel, updateTasks (já remove form)
+- task contextEdit -> get project
+- task cotextEdit -> get date on date picker
+- implementar prj context Edit
 - passar tudo o que for DOMstuff para o modulo certo
 - implementar local storage (json) = basicamente salvar tasklist e projectlist 
 - permitir escolher (e salvar) qual a vista default (default = all tasks, reabrir onde parou, selecionar projeto/filtro)
