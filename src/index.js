@@ -334,7 +334,7 @@ function contextDelete(obj) {
             //if yes, revert to the default view
             openFilterView(filterList.getDefault());
         }
-        
+
         updateTasks();
     }
 }
@@ -343,10 +343,6 @@ function contextDelete(obj) {
 function getTaskProjectName(t) {
     let foundProject = projectList.getList()[projectList.getList().findIndex((p) => p.id === t.projectID)];
     return foundProject ? foundProject.name : '';
-}
-
-function removeForm(container) {
-    container.querySelector('form').remove();
 }
 
 function createTaskForm(existingTask) {
@@ -380,7 +376,7 @@ function createTaskForm(existingTask) {
         projectSelect.id = "projectSelect";
 
         //create and append options on select element
-        const projectOptions = createProjectOptions();
+        const projectOptions = createProjectOptions(existingTask);
         projectOptions.forEach(x => projectSelect.appendChild(x));
 
         //set the select element's projectID attribute to be the same as the selected option's
@@ -403,6 +399,7 @@ function createTaskForm(existingTask) {
             taskNameInput.value = existingTask.name;
             descriptionInput.value = existingTask.description;
             dateInput.value = existingTask.date;
+            projectSelect
         }
 
         form.appendChild(taskNameInput);
@@ -416,7 +413,7 @@ function createTaskForm(existingTask) {
     }
 }
 
-function createProjectOptions() {
+function createProjectOptions(existingTask) {
     const list = projectList.getList();
     const options = [];
 
@@ -428,7 +425,10 @@ function createProjectOptions() {
         options[(list.indexOf(p)) + 1] = document.createElement('option');
         options[(list.indexOf(p)) + 1].setAttribute('projectID', p.id);
         options[(list.indexOf(p)) + 1].textContent = p.name;
-        if (options[(list.indexOf(p)) + 1].getAttribute('projectID') === mainLabel.getAttribute('prjOrFilterID')) {
+        if (existingTask && options[(list.indexOf(p)) + 1].getAttribute('projectID') === existingTask.projectID) {
+            options[(list.indexOf(p)) + 1].selected = true;
+        }
+        else if (options[(list.indexOf(p)) + 1].getAttribute('projectID') === mainLabel.getAttribute('prjOrFilterID')) {
             options[(list.indexOf(p)) + 1].selected = true;
         }
     });
