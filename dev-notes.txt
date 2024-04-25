@@ -36,8 +36,9 @@ OK - aplicar logica de context menu para projects tambem
 OK - context -> delete: remove a task/project da lista e update UI
 OK - ao deletar o projeto, NAO É PRA ABRIR project view
 OK - se deletar o projeto, tem que remover o projeto de todas as tasks
+OK - set "All Tasks" as default view
+OK - ao deletar um projeto aberto, troca para o default view
 
-- ao deletar um projeto aberto, troca para o default view
 - context -> se tem um form aberto ao clicar, fecha
 - context -> edit: transforma o element no form
 - passar tudo o que for DOMstuff para o modulo certo

@@ -312,6 +312,9 @@ function contextDelete(obj) {
         tasksToClean.forEach((t) => t.setProjectID(''));
         projectList.removeFromList(obj);
         updateProjects();
+        if (mainLabel.getAttribute('viewMode') === 'project') {
+            openFilterView(filterList.getDefault());
+        }
         updateTasks();
     }
 }
@@ -483,7 +486,7 @@ function test(t) {
 
 renderFilters();
 updateProjects();
-openFilterView(filterList.getList()[filterList.getList().findIndex((x) => x.name === 'All Tasks')]);
+openFilterView(filterList.getDefault());
 
 
 

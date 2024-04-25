@@ -177,6 +177,14 @@ export const filterList = (function () {
     const getList = () => {
         return listMethods.getList(list);
     }
+    const setDefault = (name) => {
+        list.forEach((f) => {
+           f.name === name ? f.isDefault = true : f.isDefault = false;
+        })
+    }
+    const getDefault = () => {
+        return list.find((f) => f.isDefault === true);
+    }
 
     createFilter('Inbox', getInboxTasks);
     createFilter('Today', getTodayTasks);
@@ -184,10 +192,14 @@ export const filterList = (function () {
     createFilter('Important', getImportantTasks);
     createFilter('All Tasks', getAllTasks);
     createFilter('Completed Tasks', getCompletedTasks);
+    
+    setDefault('All Tasks');
 
     return {
         listMethods,
         getList,
+        setDefault,
+        getDefault,
     }
 
 })();
