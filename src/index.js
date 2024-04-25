@@ -82,8 +82,10 @@ function createProjectElement(p) {
     const contextMenu = document.createElement("div");
     contextMenu.classList.add("context-menu-button");
     contextMenu.addEventListener('click', (e) => {
-        openContextMenu(p, project);
-        e.stopPropagation();
+        if (document.querySelector('.context-menu')) {
+            document.querySelector('.context-menu').remove();
+        }
+        openContextMenu(p, project, e);
     });
 
     project.appendChild(projectName);
