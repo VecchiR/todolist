@@ -1,7 +1,7 @@
 import { taskList, projectList, filterList } from "./logics";
 //import { renderInitialScreen } from './DOMstuff';
 import './style.css';
-import { add, format, isEqual } from "date-fns";
+import { add, format, formatISO, isEqual } from "date-fns";
 
 
 
@@ -397,9 +397,10 @@ function createTaskForm(existingTask) {
 
         if (existingTask) {
             taskNameInput.value = existingTask.name;
-            descriptionInput.value = existingTask.description;
-            dateInput.value = existingTask.date;
-            projectSelect
+            if(existingTask.description) {descriptionInput.value = existingTask.description;}
+            if(existingTask.date) {
+                dateInput.value = formatISO(existingTask.date, { representation: 'date' });
+            }
         }
 
         form.appendChild(taskNameInput);

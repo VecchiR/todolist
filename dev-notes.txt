@@ -44,8 +44,9 @@ OK - task context edit -> remove task (from view only)
 OK - if cancel, updateTasks (já remove form)
 OK - only go to default view IF THE PROJECT SHOWN IS DELETED. If p1 is showing and p2 is deleted, keep p1 showing
 OK - task contextEdit -> get project
+OK - task cotextEdit -> get date on date picker
 
-- task cotextEdit -> get date on date picker
+- task ctxEdit -> on submit: change tasks values instead of creating new one
 - implementar prj context Edit
 - passar tudo o que for DOMstuff para o modulo certo
 
