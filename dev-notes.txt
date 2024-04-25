@@ -40,8 +40,9 @@ OK - set "All Tasks" as default view
 OK - ao deletar um projeto aberto, troca para o default view
 OK - context -> se tem um form aberto ao clicar, fecha
 OK - task context -> edit: show form
+OK - task context edit -> remove task (from view only)
 
-- task context edit -> remove task (from view only)
+- only go to default view IF THE PROJECT SHOWN IS DELETED. If p1 is showing and p2 is deleted, keep p1 showing
 - if cancel, updateTasks (já remove form)
 - task contextEdit -> get project
 - task cotextEdit -> get date on date picker

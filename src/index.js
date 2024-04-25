@@ -28,6 +28,7 @@ addProjectBtn.addEventListener('click', createProjectForm);
 tasksContainer.addEventListener('click', (e) => {
     if (e.target.type === 'button') {
         removeForm(tasksContainer);
+        updateTasks();
     }
 
     else if (e.target.type === 'submit') {
@@ -44,6 +45,7 @@ tasksContainer.addEventListener('click', (e) => {
 projectsSubContainer.addEventListener('click', (e) => {
     if (e.target.type === 'button') {
         removeForm(projectsSubContainer);
+        updateProjects();
     }
 
     else if (e.target.type === 'submit') {
