@@ -33,8 +33,11 @@ tasksContainer.addEventListener('click', (e) => {
     else if (e.target.type === 'submit') {
         e.preventDefault();
         if (document.querySelector('input[name=task-name]').value) {
-            let newTask = taskList.createTask();
-            assingTaskValues(newTask);
+            let task;
+            document.querySelector('.task-form').hasAttribute('existing-task') ?
+                task = taskList.getList().find((t) => t.id === document.querySelector('.task-form').getAttribute('existing-task')) :
+                task = taskList.createTask();
+            assingTaskValues(task);
             updateTasks();
         }
     }
@@ -330,7 +333,7 @@ function contextDelete(obj) {
         updateProjects();
 
         //check if the project being deleted is active (if the user is viewing it's tasks)
-        if (mainLabel.getAttribute('prjOrFilterID') === obj.id) { 
+        if (mainLabel.getAttribute('prjOrFilterID') === obj.id) {
             //if yes, revert to the default view
             openFilterView(filterList.getDefault());
         }
@@ -355,6 +358,7 @@ function createTaskForm(existingTask) {
         const form = document.createElement("form");
         form.classList.add("task-form")
         form.setAttribute("autocomplete", "off");
+        if (existingTask) { form.setAttribute("existing-task", existingTask.id); }
 
         const taskNameInput = document.createElement("input");
         taskNameInput.type = "text";
@@ -397,8 +401,8 @@ function createTaskForm(existingTask) {
 
         if (existingTask) {
             taskNameInput.value = existingTask.name;
-            if(existingTask.description) {descriptionInput.value = existingTask.description;}
-            if(existingTask.date) {
+            if (existingTask.description) { descriptionInput.value = existingTask.description; }
+            if (existingTask.date) {
                 dateInput.value = formatISO(existingTask.date, { representation: 'date' });
             }
         }
