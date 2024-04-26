@@ -240,7 +240,7 @@ function createTaskElement(t, viewMode) {
 
     const date = document.createElement("div");
     date.classList.add("date");
-    date.textContent = t.date;
+    t.date ? date.textContent = formatISO(t.date, { representation: 'date' }): '';
 
     let project;
 
