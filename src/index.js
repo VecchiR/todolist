@@ -320,13 +320,11 @@ function openContextMenu(obj, element, e) {
 
 function contextEdit(obj, element) {
     if (obj.constructor.name === 'Task') {
-        element.remove();
-        createTaskForm(obj);
+        createTaskForm(obj, element);
     }
 
     else if (obj.constructor.name === 'Project') {
-        element.remove();
-        createProjectForm(obj);
+        createProjectForm(obj, element);
     }
 
 }
@@ -358,7 +356,7 @@ function getTaskProjectName(t) {
     return foundProject ? foundProject.name : '';
 }
 
-function createTaskForm(existingTask) {
+function createTaskForm(existingTask, element) {
     let taskHasForm = tasksContainer.querySelector("form") != null;
     let prjHasForm = projectsSubContainer.querySelector("form") != null;
 
@@ -424,7 +422,9 @@ function createTaskForm(existingTask) {
         form.appendChild(submitButton);
         form.appendChild(cancelButton);
 
-        tasksContainer.appendChild(form);
+        existingTask ?
+            element.replaceWith(form) :
+            tasksContainer.appendChild(form);
     }
 }
 
@@ -451,7 +451,7 @@ function createProjectOptions(existingTask) {
     return options;
 }
 
-function createProjectForm(existingProject) {
+function createProjectForm(existingProject, element) {
     let prjHasForm = projectsSubContainer.querySelector("form") != null;
     let taskHasForm = tasksContainer.querySelector("form") != null;
 
@@ -469,7 +469,7 @@ function createProjectForm(existingProject) {
         projectNameInput.name = "project-name";
         projectNameInput.placeholder = "Enter project name";
         if (existingProject) { projectNameInput.value = existingProject.name; }
-        
+
         const submitButton = document.createElement("button");
         submitButton.type = "submit";
         submitButton.textContent = "Add";
@@ -482,7 +482,10 @@ function createProjectForm(existingProject) {
         form.appendChild(submitButton);
         form.appendChild(cancelButton);
 
-        projectsSubContainer.appendChild(form);
+
+        existingProject ?
+            element.replaceWith(form) :
+            projectsSubContainer.appendChild(form);
     }
 }
 
