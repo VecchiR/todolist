@@ -19,11 +19,12 @@ const projectsSubContainer = document.querySelector('.projects-subcontainer');
 const filtersContainer = document.querySelector('.filters-container');
 
 addTaskBtn.addEventListener('click', () => {
-    // createTaskForm(mainLabel.getAttribute('viewMode'));
     createTaskForm();
 });
 
-addProjectBtn.addEventListener('click', createProjectForm);
+addProjectBtn.addEventListener('click', () => {
+    createProjectForm();
+});
 
 tasksContainer.addEventListener('click', (e) => {
     if (e.target.type === 'button') {
