@@ -51,8 +51,9 @@ OK - prj edit: auto-fill name
 OK - TO FIX - prj add form: shows "undefined" on name input
 OK - prj edit: on submit, change prj name instead of creating new one
 OK - tanto pra prj ou task edit: form tem que aparecer no lugar do elemento atual, nao no fim da lista
+OK - mostrar data num formato melhor
+OK - FIX - se clear date, não atualiza e continua com a antiga
 
-- mostrar data num formato melhor
 - passar tudo o que for DOMstuff para o modulo certo
 
 local storage:

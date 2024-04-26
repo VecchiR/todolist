@@ -28,8 +28,12 @@ export class Task {
 
     setDate(d) {
         if (d) {
+            console.log('entrei no setDate');
             let date = new Date(d.getUTCFullYear(), d.getUTCMonth(),d.getUTCDate());
             this.date = date;
+        }
+        else {
+            this.date = null;
         }
     }
 
