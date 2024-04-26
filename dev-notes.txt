@@ -48,9 +48,9 @@ OK - task cotextEdit -> get date on date picker
 OK - task ctxEdit -> on submit: change tasks values instead of creating new one
 OK - prj context Edit- show form
 OK - prj edit: auto-fill name
+OK - TO FIX - prj add form: shows "undefined" on name input
+OK - prj edit: on submit, change prj name instead of creating new one
 
-- TO FIX - prj add form: shows "undefined" on name input
-- prj edit: on submit, change prj name instead of creating new one
 - tanto pra prj ou task edit: form tem que aparecer no lugar do elemento atual, nao no fim da lista
 - passar tudo o que for DOMstuff para o modulo certo
 

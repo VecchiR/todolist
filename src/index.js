@@ -53,9 +53,13 @@ projectsSubContainer.addEventListener('click', (e) => {
     else if (e.target.type === 'submit') {
         e.preventDefault();
         if (document.querySelector('input[name=project-name]').value) {
-            let newProject = projectList.createProject();
-            assingProjectValues(newProject);
+            let prj;
+            document.querySelector('.project-form').hasAttribute('existing-project') ?
+                prj = projectList.getList().find((p) => p.id === document.querySelector('.project-form').getAttribute('existing-project')) :
+                prj = projectList.createProject();
+            assingProjectValues(prj);
             updateProjects();
+            updateTasks();
         }
     }
 });
