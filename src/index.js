@@ -319,6 +319,11 @@ function contextEdit(obj, element) {
         createTaskForm(obj);
     }
 
+    else if (obj.constructor.name === 'Project') {
+        element.remove();
+        createProjectForm(obj);
+    }
+
 }
 
 function contextDelete(obj) {
@@ -441,7 +446,7 @@ function createProjectOptions(existingTask) {
     return options;
 }
 
-function createProjectForm() {
+function createProjectForm(existingProject) {
     let prjHasForm = projectsSubContainer.querySelector("form") != null;
     let taskHasForm = tasksContainer.querySelector("form") != null;
 
@@ -451,12 +456,15 @@ function createProjectForm() {
         const form = document.createElement("form");
         form.classList.add("project-form")
         form.setAttribute("autocomplete", "off");
+        if (existingProject) { form.setAttribute("existing-project", existingProject.id); }
+
 
         const projectNameInput = document.createElement("input");
         projectNameInput.type = "text";
         projectNameInput.name = "project-name";
         projectNameInput.placeholder = "Enter project name";
-
+        if (existingProject) { projectNameInput.value = existingProject.name; }
+        
         const submitButton = document.createElement("button");
         submitButton.type = "submit";
         submitButton.textContent = "Add";

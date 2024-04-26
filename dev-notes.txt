@@ -48,6 +48,7 @@ OK - task cotextEdit -> get date on date picker
 OK - task ctxEdit -> on submit: change tasks values instead of creating new one
 
 - implementar prj context Edit
+- tanto pra prj ou task edit: form tem que aparecer no lugar do elemento atual, nao no fim da lista
 - passar tudo o que for DOMstuff para o modulo certo
 
 local storage:
@@ -62,6 +63,8 @@ extras:
 - implementar light/dark mode
 - salvar e ler light/dark mode
 - implementar e salvar quais filters mostrar na sidebar 
+- sort tasks by due date
+- sort options (created) 
 
 
 
