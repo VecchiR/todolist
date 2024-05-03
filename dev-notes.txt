@@ -56,7 +56,9 @@ OK - FIX - se clear date, não atualiza e continua com a antiga
 
 local storage:
 OK - Save prj/ToDos to localStorage when new prj/ToDo is created
+- "try / catch"
 - Look for data in localStorage when app is first loaded 
+
 - Make sure your app doesn’t crash if the data you may want to retrieve from localStorage isn’t there!
 
 

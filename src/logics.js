@@ -1,5 +1,5 @@
 import { compareAsc, format, add, isBefore, isEqual, isAfter, toDate } from "date-fns";
-
+import { storedProjectList, storedTaskList } from "./index";
 
 export class Entry {
     generateId = () => {
@@ -76,7 +76,7 @@ export const taskList = (function () {
 
     const listMethods = new ListMethods();
 
-    const list = [];
+    let list = [];
 
     const createTask = (name) => {
         let task = new Task();
@@ -92,11 +92,16 @@ export const taskList = (function () {
         listMethods.removeFromList(list, task);
     }
 
+    const getLocalStoredTasks = () => {
+        list = JSON.parse(localStorage.storedTaskList);
+    }
+
     return {
         listMethods,
         createTask,
         getList,
         removeFromList,
+        getLocalStoredTasks,
     }
 })();
 

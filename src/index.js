@@ -511,16 +511,16 @@ function updateProjects() {
 
 }
 
-let p1 = projectList.createProject();
-p1.setName('project 1');
-let p2 = projectList.createProject();
-p2.setName('project 2');
-let t1 = taskList.createTask();
-let t2 = taskList.createTask();
-t1.setName('task from project 1');
-t1.setProjectID(p1.id);
-t2.setName('task from project 2');
-t2.setProjectID(p2.id);
+// let p1 = projectList.createProject();
+// p1.setName('project 1');
+// let p2 = projectList.createProject();
+// p2.setName('project 2');
+// let t1 = taskList.createTask();
+// let t2 = taskList.createTask();
+// t1.setName('task from project 1');
+// t1.setProjectID(p1.id);
+// t2.setName('task from project 2');
+// t2.setProjectID(p2.id);
 /*
 console.log('projectList at start: ', projectList.getList());
 console.log('taskList at start: ', taskList.getList());
@@ -545,14 +545,14 @@ openFilterView(filterList.getDefault());
 
 
 // ----- "local storage module"? ------------------- //
-let storedTaskList;
-let storedProjectList;
+// export let storedTaskList;
+// export let storedProjectList;
+
+taskList.getLocalStoredTasks();
 
 function storeListsLocally() {
-    let jsonTaskList = JSON.stringify(taskList.getList());
-    let jsonProjectList = JSON.stringify(projectList.getList());
-    localStorage.storedTaskList = jsonTaskList;
-    localStorage.storedProjectList = jsonProjectList;
+    localStorage.storedTaskList = JSON.stringify(taskList.getList());
+    localStorage.storedProjectList = JSON.stringify(projectList.getList());
 }
 
-storeListsLocally();
+// storeListsLocally();
