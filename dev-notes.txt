@@ -54,10 +54,16 @@ OK - tanto pra prj ou task edit: form tem que aparecer no lugar do elemento atua
 OK - mostrar data num formato melhor
 OK - FIX - se clear date, não atualiza e continua com a antiga
 
-- passar tudo o que for DOMstuff para o modulo certo
-
 local storage:
-- implementar local storage (json) = basicamente salvar tasklist e projectlist 
+WHAT IF: tasklist/prjList -> list = getfromstorage. Se nao presente, "= []". Daí só salva a cada criação de prj/task
+- Save prj/ToDos to localStorage when new prj/ToDo is created
+- Look for data in localStorage when app is first loaded 
+- Make sure your app doesn’t crash if the data you may want to retrieve from localStorage isn’t there!
+
+
+
+modules:
+- passar tudo o que for DOMstuff para o modulo certo
 
 visual:
 - implementar CSS
