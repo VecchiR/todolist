@@ -1,3 +1,4 @@
+import { indexOf } from "lodash";
 import { taskList, projectList, filterList } from "./logics";
 //import { renderInitialScreen } from './DOMstuff';
 import './style.css';
@@ -40,6 +41,7 @@ tasksContainer.addEventListener('click', (e) => {
                 task = taskList.createTask();
             assingTaskValues(task);
             updateTasks();
+            storeListsLocally();
         }
     }
 
@@ -60,6 +62,7 @@ projectsSubContainer.addEventListener('click', (e) => {
             assingProjectValues(prj);
             updateProjects();
             updateTasks();
+            storeListsLocally();
         }
     }
 });
@@ -222,6 +225,7 @@ function createTaskElement(t, viewMode) {
     checkbox.addEventListener('click', () => {
         t.setCompleted();
         updateTasks();
+        storeListsLocally();
     });
 
     const taskText = document.createElement("div");
@@ -240,7 +244,7 @@ function createTaskElement(t, viewMode) {
 
     const date = document.createElement("div");
     date.classList.add("date");
-    t.date ? date.textContent = formatISO(t.date, { representation: 'date' }): '';
+    t.date ? date.textContent = formatISO(t.date, { representation: 'date' }) : '';
 
     let project;
 
@@ -256,6 +260,7 @@ function createTaskElement(t, viewMode) {
     important.addEventListener('click', (e) => {
         t.setImportant();
         updateTasks();
+        storeListsLocally();
     });
 
     const contextMenu = document.createElement("div");
@@ -333,6 +338,7 @@ function contextDelete(obj) {
     if (obj.constructor.name === 'Task') {
         taskList.removeFromList(obj);
         updateTasks();
+        storeListsLocally();
     }
     else if (obj.constructor.name === 'Project') {
         let tasksToClean = getTasksToShow('project', obj);
@@ -347,6 +353,7 @@ function contextDelete(obj) {
         }
 
         updateTasks();
+        storeListsLocally();
     }
 }
 
@@ -519,18 +526,7 @@ console.log('projectList at start: ', projectList.getList());
 console.log('taskList at start: ', taskList.getList());
 */
 
-function test(t) {
-    let now = new Date();
-    let today = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
-    let next8days = add(today, { days: 8 });
-    console.log({
-        filteredList: filterList.getList()[filterList.getList().findIndex((x) => x.name === 'Today')].filterTasks(),
-        now: now,
-        today: today,
-        next8days: next8days,
-        isTaskDateEqualToTOday: isEqual(t.date, today),
-    });
-}
+
 
 renderFilters();
 updateProjects();
@@ -539,3 +535,24 @@ openFilterView(filterList.getDefault());
 
 
 //-------------------------------- end of DOMstuff -----------------------------------------------//
+
+
+
+
+
+
+
+
+
+// ----- "local storage module"? ------------------- //
+let storedTaskList;
+let storedProjectList;
+
+function storeListsLocally() {
+    let jsonTaskList = JSON.stringify(taskList.getList());
+    let jsonProjectList = JSON.stringify(projectList.getList());
+    localStorage.storedTaskList = jsonTaskList;
+    localStorage.storedProjectList = jsonProjectList;
+}
+
+storeListsLocally();

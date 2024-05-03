@@ -55,8 +55,7 @@ OK - mostrar data num formato melhor
 OK - FIX - se clear date, não atualiza e continua com a antiga
 
 local storage:
-WHAT IF: tasklist/prjList -> list = getfromstorage. Se nao presente, "= []". Daí só salva a cada criação de prj/task
-- Save prj/ToDos to localStorage when new prj/ToDo is created
+OK - Save prj/ToDos to localStorage when new prj/ToDo is created
 - Look for data in localStorage when app is first loaded 
 - Make sure your app doesn’t crash if the data you may want to retrieve from localStorage isn’t there!
 
