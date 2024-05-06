@@ -29,7 +29,7 @@ export class Task {
     setDate(d) {
         if (d) {
             console.log('entrei no setDate');
-            let date = new Date(d.getUTCFullYear(), d.getUTCMonth(),d.getUTCDate());
+            let date = new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
             this.date = date;
         }
         else {
@@ -93,7 +93,9 @@ export const taskList = (function () {
     }
 
     const getLocalStoredTasks = () => {
-        list = JSON.parse(localStorage.storedTaskList);
+        try {
+            list = JSON.parse(localStorage.storedTaskList);
+        } catch { console.log('No task list found on local storage'); }
     }
 
     return {
@@ -122,7 +124,10 @@ export const projectList = (function () {
     }
 
     const getLocalStoredProjects = () => {
-        list = JSON.parse(localStorage.storedProjectList);
+
+        try {
+            list = JSON.parse(localStorage.storedProjectList);
+        } catch { console.log('No project list found on local storage'); }
     }
 
     return {
@@ -165,7 +170,7 @@ const get7DaysTasks = function () {
     let tasks;
     let now = new Date();
     let today = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
-    let next8days = add(today, {days: 8});
+    let next8days = add(today, { days: 8 });
     tasks = taskList.getList().filter((t) => ((isAfter(t.date, today) && isBefore(t.date, next8days)) && !t.complete));
     return tasks;
 };
@@ -193,7 +198,7 @@ export const filterList = (function () {
     }
     const setDefault = (name) => {
         list.forEach((f) => {
-           f.name === name ? f.isDefault = true : f.isDefault = false;
+            f.name === name ? f.isDefault = true : f.isDefault = false;
         })
     }
     const getDefault = () => {
@@ -206,7 +211,7 @@ export const filterList = (function () {
     createFilter('Important', getImportantTasks);
     createFilter('All Tasks', getAllTasks);
     createFilter('Completed Tasks', getCompletedTasks);
-    
+
     setDefault('All Tasks');
 
     return {

@@ -533,6 +533,7 @@ console.log('taskList at start: ', taskList.getList());
 function loadStartPage() {
     taskList.getLocalStoredTasks();
     projectList.getLocalStoredProjects();
+    storeListsLocally();
     renderFilters();
     updateProjects();
     openFilterView(filterList.getDefault());
