@@ -33,7 +33,7 @@ tasksContainer.addEventListener('click', (e) => {
 
     else if (e.target.type === 'submit') {
         e.preventDefault();
-        if (document.querySelector('input[name=task-name]').value) {
+        if (document.querySelector('input[name=task-name]').value) { //check if name input is filled
             let task;
             document.querySelector('.task-form').hasAttribute('existing-task') ?
                 task = taskList.getList().find((t) => t.id === document.querySelector('.task-form').getAttribute('existing-task')) :
@@ -53,15 +53,23 @@ projectsSubContainer.addEventListener('click', (e) => {
 
     else if (e.target.type === 'submit') {
         e.preventDefault();
-        if (document.querySelector('input[name=project-name]').value) {
+        if (document.querySelector('input[name=project-name]').value) { //check if name input is filled
             let prj;
             document.querySelector('.project-form').hasAttribute('existing-project') ?
                 prj = projectList.getList().find((p) => p.id === document.querySelector('.project-form').getAttribute('existing-project')) :
                 prj = projectList.createProject();
             assingProjectValues(prj);
             updateProjects();
+            console.log(prj.name);
             updateTasks();
             storeListsLocally();
+            
+            //if this project view is open, update view label
+            if (mainLabel.getAttribute('prjOrFilterID') === prj.id) {
+                console.log(mainLabel.getAttribute('prjOrFilterID'));
+                renderMainContent('project', prj);
+            }
+            
         }
     }
 });
