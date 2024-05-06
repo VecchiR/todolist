@@ -1,143 +1,116 @@
-na verdade: IIFE?
+DONE:
+    OK - Main app logic:
+        OK - criar lista de filtros
+        OK - fazer eles clicaveis pra abrir "filter view"
+        OK - construir as regras de "tasks to show" de cada um
+        OK - implementar datas corretamente
+        OK - default view = all tasks
+        OK - on project view: dont show project
+        OK - on filter view: show project on task 
+        OK - on project view: when adding task, projectSelect -> deixa o project selecionado
+        OK - implementar "setImportant"
+        OK - implementar checkbox
+        OK - não mostrar completed tasks (exceto o filter de completed)
+        OK - require task name to create task (e projects tb)
+        OK - mostar texo "no tasks" para FILTER VIEW se nao tem nada que corresponde ao criterio
+        OK - context menu -> 3 pontinhos que vao abrir o "edit" e "delete"
+        OK - fix: dá pra abrir 2 context menus se forem em tasks diferentes
+        OK - aplicar logica de context menu para projects tambem
+        OK - context -> delete: remove a task/project da lista e update UI
+        OK - ao deletar o projeto, NAO É PRA ABRIR project view
+        OK - se deletar o projeto, tem que remover o projeto de todas as tasks
+        OK - set "All Tasks" as default view
+        OK - ao deletar um projeto aberto, troca para o default view
+        OK - context -> se tem um form aberto ao clicar, fecha
+        OK - task context -> edit: show form
+        OK - task context edit -> remove task (from view only)
+        OK - if cancel, updateTasks (já remove form)
+        OK - only go to default view IF THE PROJECT SHOWN IS DELETED. If p1 is showing and p2 is deleted, keep p1 showing
+        OK - task contextEdit -> get project
+        OK - task cotextEdit -> get date on date picker
+        OK - task ctxEdit -> on submit: change tasks values instead of creating new one
+        OK - prj context Edit- show form
+        OK - prj edit: auto-fill name
+        OK - TO FIX - prj add form: shows "undefined" on name input
+        OK - prj edit: on submit, change prj name instead of creating new one
+        OK - tanto pra prj ou task edit: form tem que aparecer no lugar do elemento atual, nao no fim da lista
+        OK - mostrar data num formato melhor
+        OK - FIX - se clear date, não atualiza e continua com a antiga
+    OK - local storage:
+        OK - Save prj/ToDos to localStorage when new prj/ToDo is created
+        OK - Look for data in localStorage when app is first loaded 
+        OK - SHOW stored tasks/prjs on load
+        OK - Make sure your app doesn’t crash if the data you may want to retrieve from localStorage isn’t there! - "try / catch"?
+    OK - Fixes before modules:
+        OK - 1st: FIX - cant delete task or prj when it was loaded from storage on start
+        OK - Preserve instance type when saving to localStorage
+                OK - ...vou ter que trocar todo o esquema de criar entries? Pq do
+                jeito que deixei agora, o id é altearado todo reload, e quando 
+                passa do storage pra fazer NEW task, perde toda as infos (nome, date, etc)
+                MAS se for manter... aí tem que passar no constructor? Ou "assignvalues" e
+                preserva só o id?............FUCK ME.
+                -> foi só mexer no constructor e funçao "getlocalstored___" mesmo. Já deu bom
+        OK - 2nd - FIX : IF EDIT PROJECT & IS ON VIEW, UPDATE LABEL ALSO
+TO-DO:
+    visual:
+        - implementar CSS
+        - implementar icones
+    extras:
+        - permitir escolher (e salvar) qual a vista default (default = all tasks, reabrir onde parou, selecionar projeto/filtro)
+        - implementar light/dark mode
+        - salvar e ler light/dark mode
+        - implementar e salvar quais filters mostrar na sidebar 
+        - sort tasks by due date
+        - sort options (created) 
 
-const pageRenderer = (function () {
-    // e tal
-    // mas talvez fazer isso depois, pq possivelmente vai incluir a
-    //função "renderPage(), mas tambem mt do "DOMstuff"
-})();
+DOING:
+
+    MODULES:
+        - passar tudo o que for DOMstuff para o modulo certo
+        - remove ununsed console Logs
+        - remove unused comments
 
 
-function renderPage() {   
 
-    "modular" -> recarregar certas porçoes da pagina de acordo com 
-  
+
+
+NOTAS: 
+
+    sobre DOMstuff:
     
-        render sidebar -> só precisa quando ABRE A PAGINA ou ADD/REMOVE Projeto 
-        
-        render main-content -> sempre
-}
+        na verdade: IIFE?
 
-OK - Main app logic:
-    OK - criar lista de filtros
-    OK - fazer eles clicaveis pra abrir "filter view"
-    OK - construir as regras de "tasks to show" de cada um
-    OK - implementar datas corretamente
-    OK - default view = all tasks
-    OK - on project view: dont show project
-    OK - on filter view: show project on task 
-    OK - on project view: when adding task, projectSelect -> deixa o project selecionado
-    OK - implementar "setImportant"
-    OK - implementar checkbox
-    OK - não mostrar completed tasks (exceto o filter de completed)
-    OK - require task name to create task (e projects tb)
-    OK - mostar texo "no tasks" para FILTER VIEW se nao tem nada que corresponde ao criterio
-    OK - context menu -> 3 pontinhos que vao abrir o "edit" e "delete"
-    OK - fix: dá pra abrir 2 context menus se forem em tasks diferentes
-    OK - aplicar logica de context menu para projects tambem
-    OK - context -> delete: remove a task/project da lista e update UI
-    OK - ao deletar o projeto, NAO É PRA ABRIR project view
-    OK - se deletar o projeto, tem que remover o projeto de todas as tasks
-    OK - set "All Tasks" as default view
-    OK - ao deletar um projeto aberto, troca para o default view
-    OK - context -> se tem um form aberto ao clicar, fecha
-    OK - task context -> edit: show form
-    OK - task context edit -> remove task (from view only)
-    OK - if cancel, updateTasks (já remove form)
-    OK - only go to default view IF THE PROJECT SHOWN IS DELETED. If p1 is showing and p2 is deleted, keep p1 showing
-    OK - task contextEdit -> get project
-    OK - task cotextEdit -> get date on date picker
-    OK - task ctxEdit -> on submit: change tasks values instead of creating new one
-    OK - prj context Edit- show form
-    OK - prj edit: auto-fill name
-    OK - TO FIX - prj add form: shows "undefined" on name input
-    OK - prj edit: on submit, change prj name instead of creating new one
-    OK - tanto pra prj ou task edit: form tem que aparecer no lugar do elemento atual, nao no fim da lista
-    OK - mostrar data num formato melhor
-    OK - FIX - se clear date, não atualiza e continua com a antiga
-OK - local storage:
-    OK - Save prj/ToDos to localStorage when new prj/ToDo is created
-    OK - Look for data in localStorage when app is first loaded 
-    OK - SHOW stored tasks/prjs on load
-    OK - Make sure your app doesn’t crash if the data you may want to retrieve from localStorage isn’t there! - "try / catch"?
-OK - Fixes before DOMstuff:
-    OK - 1st: FIX - cant delete task or prj when it was loaded from storage on start
-    OK - Preserve instance type when saving to localStorage
-            OK - ...vou ter que trocar todo o esquema de criar entries? Pq do
-            jeito que deixei agora, o id é altearado todo reload, e quando 
-            passa do storage pra fazer NEW task, perde toda as infos (nome, date, etc)
-            MAS se for manter... aí tem que passar no constructor? Ou "assignvalues" e
-            preserva só o id?............FUCK ME.
-            -> foi só mexer no constructor e funçao "getlocalstored___" mesmo. Já deu bom
-    OK - 2nd - FIX : IF EDIT PROJECT & IS ON VIEW, UPDATE LABEL ALSO
-
-modules:
-    - passar tudo o que for DOMstuff para o modulo certo
-    - remove ununsed console Logs
-    - remove unused comments
-
-
-
-visual:
-- implementar CSS
-- implementar icones
-
-extras:
-- permitir escolher (e salvar) qual a vista default (default = all tasks, reabrir onde parou, selecionar projeto/filtro)
-- implementar light/dark mode
-- salvar e ler light/dark mode
-- implementar e salvar quais filters mostrar na sidebar 
-- sort tasks by due date
-- sort options (created) 
-
-
-
-hey -> o projectID nao precisa estar no html da task. Com o task ID conseguimos dar um
-'filter' ou achar o projectID la na taskList quando for necessário
+        const pageRenderer = (function () {
+            // e tal
+            // mas talvez fazer isso depois, pq possivelmente vai incluir a
+            //função "renderPage(), mas tambem mt do "DOMstuff"
+        })();
 
 
 
 
 
 
-Sobre "Preserve instance type when saving to localStorage":
 
-// The Employee now takes an Employee or Employee-like object 
-// instead of separate arguments.
-class Employee {
-    constructor({ name, gender, department, yy, email, skills }) {
-        this.name = name;
-        this.gender = gender;
-        this.department = department;
-        this.email = email;
-        this.skills = skills || [];
-    }
 
-    addNewSkill(skill){
-        this.skills.push(skill);
-    }
-}
 
-// Create an Employee.
-const employee = new Employee({
-    name: "John Doe", 
-    gender: "male", 
-    department: "CS", 
-    email: "john@doe.com"
-});
 
-// Add a skill.
-employee.addNewSkill("coding");
 
-// Turn employee to string and save to localStorage.
-localStorage.setItem("employee", JSON.stringify(employee));
 
-// Parse the string back into an Employee-like object and 
-// use that object to construct a new Employee.
-const retrievedEmployee = new Employee(JSON.parse(localStorage.getItem("employee")))
 
-// Add another skill, using the Employee instance method.
-retrievedEmployee.addNewSkill("reading");
 
-// Logs Employee having 2 skills, one added *before* we saved to localStorage 
-// and another skill we added *after* we retrieved him from localStorage.
-console.log(retrievedEmployee);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
