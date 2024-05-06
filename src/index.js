@@ -528,27 +528,23 @@ console.log('taskList at start: ', taskList.getList());
 
 
 
-renderFilters();
-updateProjects();
-openFilterView(filterList.getDefault());
 
 
+function loadStartPage() {
+    taskList.getLocalStoredTasks();
+    projectList.getLocalStoredProjects();
+    renderFilters();
+    updateProjects();
+    openFilterView(filterList.getDefault());
+
+}
+
+loadStartPage();
 
 //-------------------------------- end of DOMstuff -----------------------------------------------//
 
-
-
-
-
-
-
-
-
 // ----- "local storage module"? ------------------- //
-// export let storedTaskList;
-// export let storedProjectList;
 
-taskList.getLocalStoredTasks();
 
 function storeListsLocally() {
     localStorage.storedTaskList = JSON.stringify(taskList.getList());

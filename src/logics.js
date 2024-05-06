@@ -107,7 +107,7 @@ export const taskList = (function () {
 
 export const projectList = (function () {
     const listMethods = new ListMethods();
-    const list = [];
+    let list = [];
     const createProject = () => {
         let prj = new Project();
         listMethods.addToList(list, prj);
@@ -121,11 +121,16 @@ export const projectList = (function () {
         listMethods.removeFromList(list, prj);
     }
 
+    const getLocalStoredProjects = () => {
+        list = JSON.parse(localStorage.storedProjectList);
+    }
+
     return {
         listMethods,
         createProject,
         getList,
         removeFromList,
+        getLocalStoredProjects,
     }
 })();
 
