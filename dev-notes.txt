@@ -63,7 +63,21 @@ OK - Make sure your app doesn’t crash if the data you may want to retrieve fro
 
 
 modules:
+
+OK - 1st: FIX - cant delete task or prj when it was loaded from storage on start
+   OK - Preserve instance type when saving to localStorage
+        OK - ...vou ter que trocar todo o esquema de criar entries? Pq do
+        jeito que deixei agora, o id é altearado todo reload, e quando 
+        passa do storage pra fazer NEW task, perde toda as infos (nome, date, etc)
+        MAS se for manter... aí tem que passar no constructor? Ou "assignvalues" e
+        preserva só o id?............FUCK ME.
+        -> foi só mexer no constructor e funçao "getlocalstored___" mesmo. Já deu bom
+
+- 2nd - IX : IF EDIT PROJECT & IS ON VIEW, UPDATE LABEL ALSO
+
 - passar tudo o que for DOMstuff para o modulo certo
+- remove ununsed console Logs
+- remove unused comments
 
 visual:
 - implementar CSS
@@ -81,3 +95,51 @@ extras:
 
 hey -> o projectID nao precisa estar no html da task. Com o task ID conseguimos dar um
 'filter' ou achar o projectID la na taskList quando for necessário
+
+
+
+
+
+
+Sobre "Preserve instance type when saving to localStorage":
+
+// The Employee now takes an Employee or Employee-like object 
+// instead of separate arguments.
+class Employee {
+    constructor({ name, gender, department, yy, email, skills }) {
+        this.name = name;
+        this.gender = gender;
+        this.department = department;
+        this.email = email;
+        this.skills = skills || [];
+    }
+
+    addNewSkill(skill){
+        this.skills.push(skill);
+    }
+}
+
+// Create an Employee.
+const employee = new Employee({
+    name: "John Doe", 
+    gender: "male", 
+    department: "CS", 
+    email: "john@doe.com"
+});
+
+// Add a skill.
+employee.addNewSkill("coding");
+
+// Turn employee to string and save to localStorage.
+localStorage.setItem("employee", JSON.stringify(employee));
+
+// Parse the string back into an Employee-like object and 
+// use that object to construct a new Employee.
+const retrievedEmployee = new Employee(JSON.parse(localStorage.getItem("employee")))
+
+// Add another skill, using the Employee instance method.
+retrievedEmployee.addNewSkill("reading");
+
+// Logs Employee having 2 skills, one added *before* we saved to localStorage 
+// and another skill we added *after* we retrieved him from localStorage.
+console.log(retrievedEmployee);

@@ -1,4 +1,3 @@
-import { indexOf } from "lodash";
 import { taskList, projectList, filterList } from "./logics";
 //import { renderInitialScreen } from './DOMstuff';
 import './style.css';
@@ -199,6 +198,10 @@ function updateTasks(viewMode, arg) {
     (tasks.length === 0 && viewMode === 'filter') ? //check if there are tasks to show
         noTasksToShow() : //If not, write that there aren't any
         tasks.forEach((t) => createTaskElement(t, viewMode)); //if yes, render them 
+
+    console.log(taskList.getList());
+    console.log(projectList.getList());
+
 }
 
 

@@ -1,5 +1,6 @@
 import { compareAsc, format, add, isBefore, isEqual, isAfter, toDate } from "date-fns";
 import { storedProjectList, storedTaskList } from "./index";
+import { forEach } from "lodash";
 
 export class Entry {
     generateId = () => {
@@ -9,9 +10,17 @@ export class Entry {
 }
 
 export class Task {
-    constructor() {
+    constructor({ name, id, projectID, date, description, important, complete }) {
         this.entry = new Entry();
-        this.id = this.entry.generateId();
+        this.name = name;
+        if (!id) {
+            this.id = this.entry.generateId();
+        } else { this.id = id; }
+        this.projectID = projectID;
+        this.date = date;
+        this.description = description;
+        this.important = important;
+        this.complete = complete;
     }
 
     setCompleted() {
@@ -48,9 +57,12 @@ export class Task {
 }
 
 export class Project {
-    constructor() {
+    constructor({ name, id }) {
         this.entry = new Entry();
-        this.id = this.entry.generateId();
+        this.name = name;
+        if (!id) {
+            this.id = this.entry.generateId();
+        } else { this.id = id; }
     }
 
     setName(name) {
@@ -78,8 +90,8 @@ export const taskList = (function () {
 
     let list = [];
 
-    const createTask = (name) => {
-        let task = new Task();
+    const createTask = () => {
+        let task = new Task({});
         listMethods.addToList(list, task);
         return task;
     }
@@ -94,7 +106,22 @@ export const taskList = (function () {
 
     const getLocalStoredTasks = () => {
         try {
-            list = JSON.parse(localStorage.storedTaskList);
+            let storedList = JSON.parse(localStorage.storedTaskList);
+            storedList.forEach(
+                (x) => {
+                    console.log(x.name);
+                    list[storedList.indexOf(x)] = new Task({
+                        name: x.name,
+                        id: x.id,
+                        projectID: x.projectID,
+                        date: x.date,
+                        description: x.description,
+                        important: x.important,
+                        complete: x.complete
+                    });
+                }
+            );
+            // list = JSON.parse(localStorage.storedTaskList);
         } catch { console.log('No task list found on local storage'); }
     }
 
@@ -111,7 +138,7 @@ export const projectList = (function () {
     const listMethods = new ListMethods();
     let list = [];
     const createProject = () => {
-        let prj = new Project();
+        let prj = new Project({});
         listMethods.addToList(list, prj);
         return prj;
     }
@@ -124,9 +151,17 @@ export const projectList = (function () {
     }
 
     const getLocalStoredProjects = () => {
-
         try {
-            list = JSON.parse(localStorage.storedProjectList);
+            let storedList = JSON.parse(localStorage.storedProjectList);
+            storedList.forEach(
+                (x) => {
+                    console.log(x.name);
+                    list[storedList.indexOf(x)] = new Project({
+                        name: x.name,
+                        id: x.id
+                    });
+                }
+            );
         } catch { console.log('No project list found on local storage'); }
     }
 
