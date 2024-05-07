@@ -1,5 +1,6 @@
 import { add, isBefore, isEqual, isAfter } from "date-fns";
 
+
 export class Entry {
     generateId = () => {
         return Math.random().toString(36).substring(2) +
@@ -35,7 +36,6 @@ export class Task {
 
     setDate(d) {
         if (d) {
-            console.log('entrei no setDate');
             let date = new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
             this.date = date;
         }
@@ -107,7 +107,6 @@ export const taskList = (function () {
             let storedList = JSON.parse(localStorage.storedTaskList);
             storedList.forEach(
                 (x) => {
-                    console.log(x.name);
                     list[storedList.indexOf(x)] = new Task({
                         name: x.name,
                         id: x.id,
@@ -119,7 +118,6 @@ export const taskList = (function () {
                     });
                 }
             );
-            // list = JSON.parse(localStorage.storedTaskList);
         } catch { console.log('No task list found on local storage'); }
     }
 
@@ -153,7 +151,6 @@ export const projectList = (function () {
             let storedList = JSON.parse(localStorage.storedProjectList);
             storedList.forEach(
                 (x) => {
-                    console.log(x.name);
                     list[storedList.indexOf(x)] = new Project({
                         name: x.name,
                         id: x.id
