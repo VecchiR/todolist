@@ -1,5 +1,4 @@
 import { taskList, projectList, filterList } from "./logics";
-//import { renderInitialScreen } from './DOMstuff';
 import './style.css';
 import { add, format, formatISO, isEqual } from "date-fns";
 
@@ -60,16 +59,14 @@ projectsSubContainer.addEventListener('click', (e) => {
                 prj = projectList.createProject();
             assingProjectValues(prj);
             updateProjects();
-            console.log(prj.name);
             updateTasks();
             storeListsLocally();
-            
+
             //if this project view is open, update view label
             if (mainLabel.getAttribute('prjOrFilterID') === prj.id) {
-                console.log(mainLabel.getAttribute('prjOrFilterID'));
                 renderMainContent('project', prj);
             }
-            
+
         }
     }
 });
@@ -101,7 +98,7 @@ function createProjectElement(p) {
             }
         })
         if (!found) {
-            openProjectView(p);
+            renderMainContent('project', p);
         }
     });
 
@@ -133,7 +130,7 @@ function createFilterElement(f) {
     filter.classList.add("filter");
     filter.setAttribute("name", f.name);
     filter.addEventListener('click', () => {
-        openFilterView(f);
+        renderMainContent('filter', f);
     });
 
     const filterName = document.createElement("div");
@@ -145,19 +142,6 @@ function createFilterElement(f) {
     filtersContainer.appendChild(filter);
 }
 
-function openProjectView(prj) { //posso remover isso, mesclando direto com o 
-    //renderMainContent (talvez "showTasks? algo assim?")
-    //de maneira que possa usar a mesma função pra project e filter
-
-    renderMainContent('project', prj);
-}
-
-function openFilterView(filter) { //posso remover isso, mesclando direto com o 
-    //renderMainContent (talvez "showTasks? algo assim?")
-    //de maneira que possa usar a mesma função pra project e filter
-
-    renderMainContent('filter', filter);
-}
 
 function renderMainContent(viewMode, arg) {
     mainLabel.textContent = arg.name;
@@ -207,8 +191,6 @@ function updateTasks(viewMode, arg) {
         noTasksToShow() : //If not, write that there aren't any
         tasks.forEach((t) => createTaskElement(t, viewMode)); //if yes, render them 
 
-    console.log(taskList.getList());
-    console.log(projectList.getList());
 
 }
 
@@ -359,11 +341,9 @@ function contextDelete(obj) {
 
         //check if the project being deleted is active (if the user is viewing it's tasks)
         if (mainLabel.getAttribute('prjOrFilterID') === obj.id) {
-            //if yes, revert to the default view
-            openFilterView(filterList.getDefault());
-        }
+            renderMainContent('filter', filterList.getDefault()); //revert to the default view
+        } else { updateTasks(); } //"else", otherwise it will update tasks 2x (renderMainContent already update tasks)
 
-        updateTasks();
         storeListsLocally();
     }
 }
@@ -508,7 +488,6 @@ function createProjectForm(existingProject, element) {
 }
 
 function renderFilters() {
-    //filtersContainer.replaceChildren();
     filterList.getList().forEach((f) => createFilterElement(f));
 }
 
@@ -522,24 +501,6 @@ function updateProjects() {
 
 }
 
-// let p1 = projectList.createProject();
-// p1.setName('project 1');
-// let p2 = projectList.createProject();
-// p2.setName('project 2');
-// let t1 = taskList.createTask();
-// let t2 = taskList.createTask();
-// t1.setName('task from project 1');
-// t1.setProjectID(p1.id);
-// t2.setName('task from project 2');
-// t2.setProjectID(p2.id);
-/*
-console.log('projectList at start: ', projectList.getList());
-console.log('taskList at start: ', taskList.getList());
-*/
-
-
-
-
 
 function loadStartPage() {
     taskList.getLocalStoredTasks();
@@ -547,20 +508,18 @@ function loadStartPage() {
     storeListsLocally();
     renderFilters();
     updateProjects();
-    openFilterView(filterList.getDefault());
-
+    renderMainContent('filter', filterList.getDefault());
 }
 
 loadStartPage();
-
 //-------------------------------- end of DOMstuff -----------------------------------------------//
 
+
+
+
 // ----- "local storage module"? ------------------- //
-
-
 function storeListsLocally() {
     localStorage.storedTaskList = JSON.stringify(taskList.getList());
     localStorage.storedProjectList = JSON.stringify(projectList.getList());
 }
 
-// storeListsLocally();
