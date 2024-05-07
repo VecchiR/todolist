@@ -29,25 +29,16 @@ footer,
     grid-auto-flow: column;
 }
 
-.context-menu-button {
-    width: 10px;
-    border: 1px solid blue;
-}
-
+.context-menu-button,
+.checkbox,
 .important {
-    width: 10px;
-    border: 1px solid red;
-}
-
-.checkbox {
-    width: 10px;
-    border: 1px solid green;
+    width: 25px;
 }
 
 .project {
     display: flex;
 }
 
-.selected {
+/* .selected {
     background-color: blueviolet;
-}
+} */

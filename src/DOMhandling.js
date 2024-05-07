@@ -2,8 +2,11 @@ import { taskList, projectList, filterList } from "./logic";
 import { storeListsLocally } from "./localstorage";
 import { filtersContainer, projectsSubContainer, mainLabel, tasksContainer } from "./index";
 import { formatISO } from "date-fns";
-
-
+import incompleteIcon from "./icons/incomplete.svg";
+import completeIcon from "./icons/complete.svg";
+import unimportantIcon from "./icons/unimportant.svg";
+import importantIcon from "./icons/important.svg";
+import contextIcon from "./icons/context.svg";
 
 
 export function assingProjectValues(p) {
@@ -146,9 +149,14 @@ function createTaskElement(t, viewMode) {
     task.setAttribute("taskID", t.id);
     task.setAttribute("projectID", t.projectID);
 
-    const checkbox = document.createElement("div");
+    const checkbox = document.createElement("img");
     checkbox.classList.add("checkbox");
-    if (t.complete) { toggleSelected(checkbox); }
+
+    if (t.complete) {
+        toggleSelected(checkbox);
+        checkbox.src = completeIcon;
+    } else { checkbox.src = incompleteIcon; }
+
     checkbox.addEventListener('click', () => {
         t.setCompleted();
         updateTasks();
@@ -181,16 +189,27 @@ function createTaskElement(t, viewMode) {
         project.textContent = getTaskProjectName(t);
     }
 
-    const important = document.createElement("div");
+
+
+    const important = document.createElement("img");
     important.classList.add("important");
-    if (t.important) { toggleSelected(important); }
+
+    if (t.important) {
+        toggleSelected(important);
+        important.src = importantIcon;
+    } else { important.src = unimportantIcon; }
+
     important.addEventListener('click', (e) => {
         t.setImportant();
         updateTasks();
         storeListsLocally();
     });
 
-    const contextMenu = document.createElement("div");
+
+
+
+    const contextMenu = document.createElement("img");
+    contextMenu.src = contextIcon;
     contextMenu.classList.add("context-menu-button");
     contextMenu.addEventListener('click', (e) => {
         if (document.querySelector('.context-menu')) {
