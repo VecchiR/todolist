@@ -51,6 +51,15 @@ DONE:
                 preserva só o id?............FUCK ME.
                 -> foi só mexer no constructor e funçao "getlocalstored___" mesmo. Já deu bom
         OK - 2nd - FIX : IF EDIT PROJECT & IS ON VIEW, UPDATE LABEL ALSO
+
+DOING:
+    MODULES:
+        OK - remove ununsed console Logs, old code, etc
+        OK - remove unused comments
+        - passar tudo o que for DOMstuff ou localstorage para os modulos certos
+
+
+
 TO-DO:
     visual:
         - implementar CSS
@@ -62,16 +71,6 @@ TO-DO:
         - implementar e salvar quais filters mostrar na sidebar 
         - sort tasks by due date
         - sort options (created) 
-
-DOING:
-
-    MODULES:
-        - passar tudo o que for DOMstuff para o modulo certo
-        - remove ununsed console Logs
-        - remove unused comments
-
-
-
 
 
 NOTAS: 

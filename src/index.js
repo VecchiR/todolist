@@ -1,6 +1,6 @@
-import { taskList, projectList, filterList } from "./logics";
+import { taskList, projectList, filterList } from "./classesAndObjects";
 import './style.css';
-import { add, format, formatISO, isEqual } from "date-fns";
+import { formatISO } from "date-fns";
 
 
 

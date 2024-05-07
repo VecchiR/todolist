@@ -1,6 +1,4 @@
-import { compareAsc, format, add, isBefore, isEqual, isAfter, toDate } from "date-fns";
-import { storedProjectList, storedTaskList } from "./index";
-import { forEach } from "lodash";
+import { add, isBefore, isEqual, isAfter } from "date-fns";
 
 export class Entry {
     generateId = () => {
