@@ -51,19 +51,18 @@ DONE:
                 preserva só o id?............FUCK ME.
                 -> foi só mexer no constructor e funçao "getlocalstored___" mesmo. Já deu bom
         OK - 2nd - FIX : IF EDIT PROJECT & IS ON VIEW, UPDATE LABEL ALSO
-
-DOING:
-    MODULES:
+    OK - MODULES:
         OK - remove ununsed console Logs, old code, etc
         OK - remove unused comments
-        - passar tudo o que for DOMstuff ou localstorage para os modulos certos
+        OK - passar tudo o que for DOMstuff ou localstorage para os modulos certos
 
+DOING:
+    VISUAL:
+        IMPLEMENTAR CSS:
+        - implementar icones
 
 
 TO-DO:
-    visual:
-        - implementar CSS
-        - implementar icones
     extras:
         - permitir escolher (e salvar) qual a vista default (default = all tasks, reabrir onde parou, selecionar projeto/filtro)
         - implementar light/dark mode
@@ -72,18 +71,6 @@ TO-DO:
         - sort tasks by due date
         - sort options (created) 
 
-
-NOTAS: 
-
-    sobre DOMstuff:
-    
-        na verdade: IIFE?
-
-        const pageRenderer = (function () {
-            // e tal
-            // mas talvez fazer isso depois, pq possivelmente vai incluir a
-            //função "renderPage(), mas tambem mt do "DOMstuff"
-        })();
 
 
 
