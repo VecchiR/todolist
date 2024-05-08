@@ -58,8 +58,9 @@ function createProjectElement(p) {
     projectName.textContent = p.name;
 
 
-    const contextMenu = document.createElement("div");
+    const contextMenu = document.createElement("img");
     contextMenu.classList.add("context-menu-button");
+    contextMenu.src = contextIcon;
     contextMenu.addEventListener('click', (e) => {
         if (document.querySelector('.context-menu')) {
             document.querySelector('.context-menu').remove();
