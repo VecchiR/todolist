@@ -20,6 +20,14 @@ addTaskBtn.addEventListener('click', () => {
     createTaskForm();
 });
 
+document.addEventListener ('keydown', (e) => {
+    if (e.code === 'Escape' && document.querySelector('dialog')) {
+        e.preventDefault();
+        document.querySelector('dialog').remove();
+    }
+})
+
+
 projectsSubContainer.addEventListener('click', (e) => {
     if (e.target.type === 'button') {
         updateProjects();
@@ -48,6 +56,7 @@ projectsSubContainer.addEventListener('click', (e) => {
 
 tasksContainer.addEventListener('click', (e) => {
     if (e.target.type === 'button') {
+        document.querySelector('dialog').close();
         updateTasks();
     }
 

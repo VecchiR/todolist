@@ -303,13 +303,16 @@ function contextDelete(obj) {
 export function createTaskForm(existingTask, element) {
     let taskHasForm = tasksContainer.querySelector("form") != null;
     let prjHasForm = projectsSubContainer.querySelector("form") != null;
+    console.log('tem que entrar. ');
 
-
-    if (taskHasForm === false) {
+    // if (taskHasForm === false) {
+        console.log('entrei.');
         if (prjHasForm) { projectsSubContainer.querySelector("form").remove(); }
+        
         const form = document.createElement("form");
         form.classList.add("task-form")
         form.setAttribute("autocomplete", "off");
+        form.method = 'dialog';
         if (existingTask) { form.setAttribute("existing-task", existingTask.id); }
 
         const taskNameInput = document.createElement("input");
@@ -366,10 +369,18 @@ export function createTaskForm(existingTask, element) {
         form.appendChild(submitButton);
         form.appendChild(cancelButton);
 
-        existingTask ?
-            element.replaceWith(form) :
-            tasksContainer.appendChild(form);
-    }
+        let dialog = document.querySelector("dialog");
+        if(!dialog) {
+            dialog = document.createElement('dialog');
+        } 
+
+        dialog.appendChild(form);
+        tasksContainer.appendChild(dialog);
+
+        // existingTask ?
+        //     element.replaceWith(form) :
+            dialog.showModal();
+    // }
 }
 
 function createProjectOptions(existingTask) {
