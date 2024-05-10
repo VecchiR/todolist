@@ -1,5 +1,5 @@
 import { taskList, projectList } from "./logic";
-import { createProjectForm, createTaskForm, updateProjects, assingProjectValues, updateTasks, renderMainContent, assingTaskValues, loadStartPage } from "./DOMhandling";
+import { updateSelectedViewTag, createProjectForm, createTaskForm, updateProjects, assingProjectValues, updateTasks, renderMainContent, assingTaskValues, loadStartPage } from "./DOMhandling";
 import { storeListsLocally } from "./localstorage";
 import './style.css';
 
@@ -48,6 +48,8 @@ projectsSubContainer.addEventListener('click', (e) => {
             //if this project view is open, update view label
             if (mainLabel.getAttribute('prjOrFilterID') === prj.id) {
                 renderMainContent('project', prj);
+                console.log(prj.id);
+                updateSelectedViewTag(document.querySelector(`div[projectID="${prj.id}"]`));
             }
 
         }

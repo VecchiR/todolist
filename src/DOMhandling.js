@@ -91,7 +91,7 @@ function createFilterElement(f) {
     filtersContainer.appendChild(filter);
 }
 
-function updateSelectedViewTag(target) {
+export function updateSelectedViewTag(target) {
     document.querySelectorAll(".filter").forEach((f) => f.classList.remove('selected-view'));
     document.querySelectorAll(".projects-subcontainer>.project").forEach((p) => p.classList.remove('selected-view'));
 
@@ -298,6 +298,7 @@ function contextDelete(obj) {
         //check if the project being deleted is active (if the user is viewing it's tasks)
         if (mainLabel.getAttribute('prjOrFilterID') === obj.id) {
             renderMainContent('filter', filterList.getDefault()); //revert to the default view
+            updateSelectedViewTag(document.querySelector(`div[name="${filterList.getDefault().name}"]`));
         } else { updateTasks(); } //"else", otherwise it will update tasks 2x (renderMainContent already update tasks)
 
         storeListsLocally();
