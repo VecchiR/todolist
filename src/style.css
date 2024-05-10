@@ -168,6 +168,14 @@ header {
     padding: 10px 12px;
 }
 
+.task > *:not(:last-child):not(:nth-child(1))  {
+    margin-right: 50px;
+}
+
+.task > *:first-child  {
+    margin-right: 12px;
+}
+
 .add-task {
     position: fixed;
     bottom: 40px;

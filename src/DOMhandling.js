@@ -1,7 +1,7 @@
 import { taskList, projectList, filterList } from "./logic";
 import { storeListsLocally } from "./localstorage";
 import { filtersContainer, projectsSubContainer, mainLabel, tasksContainer } from "./index";
-import { formatISO } from "date-fns";
+import { format, formatISO } from "date-fns";
 import incompleteIcon from "./icons/incomplete.svg";
 import completeIcon from "./icons/complete.svg";
 import unimportantIcon from "./icons/unimportant.svg";
@@ -184,7 +184,8 @@ function createTaskElement(t, viewMode) {
 
     const date = document.createElement("div");
     date.classList.add("date");
-    t.date ? date.textContent = formatISO(t.date, { representation: 'date' }) : '';
+    t.date ? date.textContent = format(t.date, "MMM do" ) : '';
+    // do MMM
 
     let project;
 
