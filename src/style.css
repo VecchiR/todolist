@@ -21,7 +21,27 @@
     --primary-even-darker: hsl(from var(--primary) h s calc(l - 0.2));
     --background-lighter: hsl(from var(--background) h s calc(l + 0.08));
     --accent-darker: hsl(from var(--accent) h s calc(l - 0.05));
-}
+
+    --shadow-color: 0deg 5% 56%;
+    --shadow-elevation-low:
+      0.3px 0.3px 0.4px hsl(var(--shadow-color) / 0.54),
+      0.5px 0.5px 0.6px -2px hsl(var(--shadow-color) / 0.4),
+      1.4px 1.2px 1.7px -4px hsl(var(--shadow-color) / 0.27);
+    --shadow-elevation-medium:
+      0.3px 0.3px 0.4px hsl(var(--shadow-color) / 0.57),
+      0.8px 0.7px 1px -1.3px hsl(var(--shadow-color) / 0.46),
+      2.5px 2.2px 3px -2.7px hsl(var(--shadow-color) / 0.35),
+      6.8px 6.1px 8.2px -4px hsl(var(--shadow-color) / 0.25);
+    --shadow-elevation-high:
+      0.3px 0.3px 0.4px hsl(var(--shadow-color) / 0.53),
+      1.1px 0.9px 1.3px -0.6px hsl(var(--shadow-color) / 0.48),
+      2.1px 1.9px 2.5px -1.1px hsl(var(--shadow-color) / 0.43),
+      4.2px 3.7px 5px -1.7px hsl(var(--shadow-color) / 0.38),
+      7.8px 6.9px 9.4px -2.3px hsl(var(--shadow-color) / 0.33),
+      13.5px 12px 16.3px -2.9px hsl(var(--shadow-color) / 0.28),
+      22px 19.5px 26.5px -3.4px hsl(var(--shadow-color) / 0.23),
+      33.8px 30px 40.7px -4px hsl(var(--shadow-color) / 0.18);
+  }
 
 .logo {
     font-weight: 600;
@@ -74,12 +94,20 @@ footer {
     align-content: center;
 }
 
+header {
+    z-index: 1;
+    box-shadow: var(--shadow-elevation-medium);
+
+}
+
 .sidebar {
     background-color: var(--primary-little-lighter);
     display: grid;
     padding: 22px;
     overflow-y: auto;
     overflow-x: hidden;
+    row-gap: 30px;
+
 }
 
 .filter-label,
@@ -87,6 +115,15 @@ footer {
 .main-label {
     font-weight: 500;
     font-size: 24px;
+}
+
+.main-label {
+    background-color: var(--accent);
+    color: var(--background-lighter);
+    border-radius: 4px;
+    padding: 20px;
+    font-size: xx-large;
+    margin-bottom: 20px;
 }
 
 .filters-container,
@@ -162,6 +199,20 @@ footer {
     background-color: var(--primary-lighter);
 }
 
+.filter:hover:not(.selected-view),
+.projects-subcontainer>.project:hover:not(.selected-view) {
+    filter: brightness(104%);
+}
+
+.filter:active:not(.selected-view),
+.projects-subcontainer>.project:active:not(.selected-view) {
+    filter: brightness(98%);
+}
+
+.selected-view {
+    border-left: 4px solid var(--accent);
+    filter: brightness(108%);
+}
 
 input,
 button,

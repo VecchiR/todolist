@@ -50,6 +50,8 @@ function createProjectElement(p) {
         })
         if (!found) {
             renderMainContent('project', p);
+            updateSelectedViewTag(e.target);
+
         }
     });
 
@@ -81,17 +83,19 @@ function createFilterElement(f) {
     const filter = document.createElement("div");
     filter.classList.add("filter");
     filter.setAttribute("name", f.name);
-    filter.addEventListener('click', () => {
+    filter.addEventListener('click', (e) => {
         renderMainContent('filter', f);
+        updateSelectedViewTag(e.target);
     });
-
-    const filterName = document.createElement("div");
-    filterName.classList.add("filter-name");
-    filterName.textContent = f.name;
-
-    filter.appendChild(filterName);
-
+    filter.textContent = f.name;
     filtersContainer.appendChild(filter);
+}
+
+function updateSelectedViewTag(target) {
+    document.querySelectorAll(".filter").forEach((f) => f.classList.remove('selected-view'));
+    document.querySelectorAll(".projects-subcontainer>.project").forEach((p) => p.classList.remove('selected-view'));
+
+    target.classList.add('selected-view');
 }
 
 export function renderMainContent(viewMode, arg) {
@@ -306,80 +310,80 @@ export function createTaskForm(existingTask, element) {
     console.log('tem que entrar. ');
 
     // if (taskHasForm === false) {
-        console.log('entrei.');
-        if (prjHasForm) { projectsSubContainer.querySelector("form").remove(); }
-        
-        const form = document.createElement("form");
-        form.classList.add("task-form")
-        form.setAttribute("autocomplete", "off");
-        form.method = 'dialog';
-        if (existingTask) { form.setAttribute("existing-task", existingTask.id); }
+    console.log('entrei.');
+    if (prjHasForm) { projectsSubContainer.querySelector("form").remove(); }
 
-        const taskNameInput = document.createElement("input");
-        taskNameInput.type = "text";
-        taskNameInput.name = "task-name";
-        taskNameInput.placeholder = "Enter task name";
+    const form = document.createElement("form");
+    form.classList.add("task-form")
+    form.setAttribute("autocomplete", "off");
+    form.method = 'dialog';
+    if (existingTask) { form.setAttribute("existing-task", existingTask.id); }
 
-        const descriptionInput = document.createElement("input");
-        descriptionInput.type = "text";
-        descriptionInput.name = "description";
-        descriptionInput.placeholder = "Enter task description (optional)";
+    const taskNameInput = document.createElement("input");
+    taskNameInput.type = "text";
+    taskNameInput.name = "task-name";
+    taskNameInput.placeholder = "Enter task name";
 
-        const dateInput = document.createElement("input");
-        dateInput.type = "date";
-        dateInput.name = "date";
-        dateInput.id = "date";
+    const descriptionInput = document.createElement("input");
+    descriptionInput.type = "text";
+    descriptionInput.name = "description";
+    descriptionInput.placeholder = "Enter task description (optional)";
 
-        const projectSelect = document.createElement("select");
-        projectSelect.name = "projectSelect";
-        projectSelect.id = "projectSelect";
+    const dateInput = document.createElement("input");
+    dateInput.type = "date";
+    dateInput.name = "date";
+    dateInput.id = "date";
 
-        //create and append options on select element
-        const projectOptions = createProjectOptions(existingTask);
-        projectOptions.forEach(x => projectSelect.appendChild(x));
+    const projectSelect = document.createElement("select");
+    projectSelect.name = "projectSelect";
+    projectSelect.id = "projectSelect";
 
-        //set the select element's projectID attribute to be the same as the selected option's
-        const opt = projectSelect.options;
+    //create and append options on select element
+    const projectOptions = createProjectOptions(existingTask);
+    projectOptions.forEach(x => projectSelect.appendChild(x));
+
+    //set the select element's projectID attribute to be the same as the selected option's
+    const opt = projectSelect.options;
+    projectSelect.setAttribute('projectID', opt[opt.selectedIndex].getAttribute('projectID'));
+    projectSelect.addEventListener("change", (e) => {
         projectSelect.setAttribute('projectID', opt[opt.selectedIndex].getAttribute('projectID'));
-        projectSelect.addEventListener("change", (e) => {
-            projectSelect.setAttribute('projectID', opt[opt.selectedIndex].getAttribute('projectID'));
-        });
+    });
 
-        const submitButton = document.createElement("button");
-        submitButton.type = "submit";
-        submitButton.textContent = "Add";
+    const submitButton = document.createElement("button");
+    submitButton.type = "submit";
+    submitButton.textContent = "Add";
 
-        const cancelButton = document.createElement("button");
-        cancelButton.type = "button";
-        cancelButton.textContent = "Cancel";
+    const cancelButton = document.createElement("button");
+    cancelButton.type = "button";
+    cancelButton.textContent = "Cancel";
 
 
-        if (existingTask) {
-            taskNameInput.value = existingTask.name;
-            if (existingTask.description) { descriptionInput.value = existingTask.description; }
-            if (existingTask.date) {
-                dateInput.value = formatISO(existingTask.date, { representation: 'date' });
-            }
+    if (existingTask) {
+        taskNameInput.value = existingTask.name;
+        if (existingTask.description) { descriptionInput.value = existingTask.description; }
+        if (existingTask.date) {
+            dateInput.value = formatISO(existingTask.date, { representation: 'date' });
         }
+    }
 
-        form.appendChild(taskNameInput);
-        form.appendChild(descriptionInput);
-        form.appendChild(dateInput);
-        form.appendChild(projectSelect);
-        form.appendChild(submitButton);
-        form.appendChild(cancelButton);
+    form.appendChild(taskNameInput);
+    form.appendChild(descriptionInput);
+    form.appendChild(dateInput);
+    form.appendChild(projectSelect);
+    form.appendChild(submitButton);
+    form.appendChild(cancelButton);
 
-        let dialog = document.querySelector("dialog");
-        if(!dialog) {
-            dialog = document.createElement('dialog');
-        } 
+    let dialog = document.querySelector("dialog");
+    if (!dialog) {
+        dialog = document.createElement('dialog');
+    }
 
-        dialog.appendChild(form);
-        tasksContainer.appendChild(dialog);
+    dialog.appendChild(form);
+    tasksContainer.appendChild(dialog);
 
-        // existingTask ?
-        //     element.replaceWith(form) :
-            dialog.showModal();
+    // existingTask ?
+    //     element.replaceWith(form) :
+    dialog.showModal();
     // }
 }
 
@@ -464,6 +468,10 @@ export function loadStartPage() {
     storeListsLocally();
     renderFilters();
     updateProjects();
-    renderMainContent('filter', filterList.getDefault());
+    const defaultFilter = filterList.getDefault();
+    renderMainContent('filter', defaultFilter);
+
+    const targetFilterElement = document.querySelector(`div[name="${defaultFilter.name}"]`);
+    updateSelectedViewTag(targetFilterElement);
 }
 
