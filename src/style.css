@@ -18,6 +18,7 @@
     --primary-little-lighter: hsl(from var(--primary) h s calc(l + 0.05));
     --primary-lighter: hsl(from var(--primary) h s calc(l + 0.14));
     --primary-darker: hsl(from var(--primary) h s calc(l - 0.1));
+    --primary-even-darker: hsl(from var(--primary) h s calc(l - 0.2));
     --background-lighter: hsl(from var(--background) h s calc(l + 0.08));
     --accent-darker: hsl(from var(--accent) h s calc(l - 0.05));
 }
@@ -25,6 +26,8 @@
 .logo {
     font-weight: 600;
     font-size: 50px;
+    color: var(--accent);
+    text-shadow: 3px 4px var(--primary-even-darker);
 }
 
 
