@@ -50,7 +50,7 @@ function createProjectElement(p) {
         })
         if (!found) {
             renderMainContent('project', p);
-            updateSelectedViewTag(e.target);
+            updateSelectedViewTag(project);
 
         }
     });
@@ -474,4 +474,6 @@ export function loadStartPage() {
     const targetFilterElement = document.querySelector(`div[name="${defaultFilter.name}"]`);
     updateSelectedViewTag(targetFilterElement);
 }
+
+
 
