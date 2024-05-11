@@ -9,7 +9,7 @@
 
 /* :root[data-theme="light"] { */
 :root {
-    --text: #18101a;
+    --text: #323232;
     --background: #E4DDDD;
     --primary: #A7ACB2;
     --secondary: #8B8A8B;
@@ -17,10 +17,13 @@
     
     --primary-little-lighter: hsl(from var(--primary) h s calc(l + 0.05));
     --primary-lighter: hsl(from var(--primary) h s calc(l + 0.14));
+    --primary-even-lighter: hsl(from var(--primary) h s calc(l + 0.23));
     --primary-darker: hsl(from var(--primary) h s calc(l - 0.1));
     --primary-even-darker: hsl(from var(--primary) h s calc(l - 0.2));
     --background-lighter: hsl(from var(--background) h s calc(l + 0.08));
     --accent-darker: hsl(from var(--accent) h s calc(l - 0.05));
+    --text-lighter: hsl(from var(--text) h s calc(l + 0.2));
+
 
     --shadow-color: 0deg 5% 56%;
     --shadow-elevation-low:
@@ -47,7 +50,7 @@
     font-weight: 600;
     font-size: 50px;
     color: var(--accent);
-    text-shadow: 3px 4px var(--primary-even-darker);
+    text-shadow: 3px 4px var(--text-lighter);
 }
 
 
@@ -61,6 +64,7 @@ body {
     font-weight: 400;
     color: var(--text);
     font-size: 20px;
+    overflow-y: hidden;
 
 }
 
@@ -102,12 +106,15 @@ header {
 
 .sidebar {
     background-color: var(--primary-little-lighter);
-    display: grid;
+    display: flex;
     padding: 22px;
     overflow-y: auto;
     overflow-x: hidden;
-    row-gap: 30px;
-
+    row-gap: 45px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-wrap: nowrap;
 }
 
 .filter-label,
@@ -138,6 +145,7 @@ header {
 .main-content {
     background-color: var(--background);
     padding: 18px;
+    overflow-y: auto;
 }
 
 .tasks-container {
@@ -146,8 +154,6 @@ header {
     row-gap: 10px;
     overflow-y: auto;
     overflow-x: hidden;
-
-
 }
 
 .no-tasks-text {
@@ -176,10 +182,51 @@ header {
     margin-right: 12px;
 }
 
+.task-description {
+    margin-top: 3px;
+    font-size: 14px;
+    font-weight: 400;
+    filter: brightness(150%);
+    /* display: inline-block; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.task-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.task-text {
+    /* display: inline-block; */
+    overflow: hidden;
+    /* text-overflow: ellipsis; */
+    white-space: nowrap;
+    /* width: 100px; */
+    /* text-wrap: nowrap; */
+}
+
+
+.important {
+    filter: invert(69%) sepia(81%) saturate(2317%) hue-rotate(299deg) brightness(80%) contrast(86%);
+}
+
+.context-menu-button,
+.checkbox {
+    filter: invert(16%) sepia(1%) saturate(0%) hue-rotate(198deg) brightness(102%) contrast(91%);
+}
+
 .add-task {
     position: fixed;
     bottom: 40px;
     right: 30px;
+    background-color: var(--accent);
+    color: var(--background-lighter);
+}
+
+.add-project {
     background-color: var(--accent);
     color: var(--background-lighter);
 }
@@ -231,16 +278,63 @@ select {
 
 }
 
-button {
-    background-color: #60bfa400;
+dialog {
+    background-color: var(--background-lighter);
+    border: 0;
     border-radius: 4px;
 }
 
-/* .selected {
-    background-color: blueviolet;
-} */
+.task-form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    row-gap: 20px;
+    padding: 30px;
+}
 
+.task-form > input,
+.task-form > select {
+    border:0;
+    background-color: var(--primary-even-lighter);
+    border-radius: 4px;
+    padding: 8px;
+}
 
-/* * {
-    border: 1px solid red;
+button,
+body > div.main-content > div.tasks-container > dialog > form > button:nth-child(5)    {
+    background-color: var(--primary-lighter);
+    border-radius: 4px;
+}
+
+.tasks-container:not(:first-child) > .context-menu {
+    padding: 8px;
+    border-radius: 6px;
+    position: absolute;
+    background-color: #aaa9a999;
+    /* color: var(--background); */
+    z-index: 5;
+    bottom: 24px;
+    right: 16px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    row-gap: 9px;
+}
+
+.context-container {
+    position: relative;
+}
+
+.context-menu > div {
+    padding: 4px;    
+}
+.context-menu > div:hover {
+    filter: brightness(10%);
+    cursor: pointer;
+
+}
+
+/* .context-container {
+    display: flex;
+    flex-direction: row;
 } */

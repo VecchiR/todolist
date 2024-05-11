@@ -185,7 +185,6 @@ function createTaskElement(t, viewMode) {
     const date = document.createElement("div");
     date.classList.add("date");
     t.date ? date.textContent = format(t.date, "MMM do" ) : '';
-    // do MMM
 
     let project;
 
@@ -212,16 +211,17 @@ function createTaskElement(t, viewMode) {
     });
 
 
+    const contextContainer = document.createElement('div');
+    contextContainer.classList.add('context-container');
 
-
-    const contextMenu = document.createElement("img");
-    contextMenu.src = contextIcon;
-    contextMenu.classList.add("context-menu-button");
-    contextMenu.addEventListener('click', (e) => {
+    const contextMenuButton = document.createElement("img");
+    contextMenuButton.src = contextIcon;
+    contextMenuButton.classList.add("context-menu-button");
+    contextMenuButton.addEventListener('click', (e) => {
         if (document.querySelector('.context-menu')) {
             document.querySelector('.context-menu').remove();
         }
-        openContextMenu(t, task, e);
+        openContextMenu(t, contextContainer, e);
         if (document.querySelector('form')) {
             document.querySelector('form').remove();
         }
@@ -234,7 +234,9 @@ function createTaskElement(t, viewMode) {
     task.appendChild(date);
     if (viewMode === 'filter') { task.appendChild(project) };
     task.appendChild(important);
-    task.appendChild(contextMenu);
+    
+    contextContainer.appendChild(contextMenuButton);
+    task.appendChild(contextContainer);
 
     tasksContainer.appendChild(task);
 
