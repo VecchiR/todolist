@@ -304,6 +304,23 @@ button,
 body > div.main-content > div.tasks-container > dialog > form > button:nth-child(5)    {
     background-color: var(--primary-lighter);
     border-radius: 4px;
+    border: 0;
+    box-shadow: var(--shadow-elevation-medium);
+}
+
+.project-form {
+    padding: 6px 0;
+    gap: 6px 6px;
+    display: grid;
+    grid-template: 1fr 1fr / 1fr 1fr;
+}
+
+.project-form > input {
+    grid-column: 1 / span 2;
+    border: 0;
+    outline: none;
+    border-radius: 4px;
+    padding: 2px 8px;
 }
 
 .tasks-container:not(:first-child) > .context-menu {
