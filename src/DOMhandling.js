@@ -208,7 +208,7 @@ function createTaskElement(t, viewMode) {
         important.src = importantIcon;
     } else { important.src = unimportantIcon; }
 
-    important.addEventListener('click', (e) => {
+    important.addEventListener('click', () => {
         t.setImportant();
         updateTasks();
         storeListsLocally();
@@ -285,7 +285,7 @@ function openContextMenu(obj, element, e) {
 
 function contextEdit(obj, element) {
     if (obj.constructor.name === 'Task') {
-        createTaskForm(obj, element);
+        createTaskForm(obj);
     }
 
     else if (obj.constructor.name === 'Project') {
@@ -316,8 +316,7 @@ function contextDelete(obj) {
     }
 }
 
-export function createTaskForm(existingTask, element) {
-    let taskHasForm = tasksContainer.querySelector("form") != null;
+export function createTaskForm(existingTask) {
     let prjHasForm = projectsSubContainer.querySelector("form") != null;
 
     if (prjHasForm) { projectsSubContainer.querySelector("form").remove(); }
@@ -354,7 +353,7 @@ export function createTaskForm(existingTask, element) {
     //set the select element's projectID attribute to be the same as the selected option's
     const opt = projectSelect.options;
     projectSelect.setAttribute('projectID', opt[opt.selectedIndex].getAttribute('projectID'));
-    projectSelect.addEventListener("change", (e) => {
+    projectSelect.addEventListener("change", () => {
         projectSelect.setAttribute('projectID', opt[opt.selectedIndex].getAttribute('projectID'));
     });
 
