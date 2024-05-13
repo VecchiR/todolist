@@ -60,10 +60,13 @@ function createProjectElement(p) {
     projectName.textContent = p.name;
 
 
-    const contextMenu = document.createElement("img");
-    contextMenu.classList.add("context-menu-button");
-    contextMenu.src = contextIcon;
-    contextMenu.addEventListener('click', (e) => {
+    const contextContainer = document.createElement('div');
+    contextContainer.classList.add('context-container');
+
+    const contextMenuButton = document.createElement("img");
+    contextMenuButton.classList.add("context-menu-button");
+    contextMenuButton.src = contextIcon;
+    contextMenuButton.addEventListener('click', (e) => {
         if (document.querySelector('.context-menu')) {
             document.querySelector('.context-menu').remove();
         }
@@ -74,7 +77,8 @@ function createProjectElement(p) {
     });
 
     project.appendChild(projectName);
-    project.appendChild(contextMenu);
+    contextContainer.appendChild(contextMenuButton);
+    project.appendChild(contextContainer);
 
     projectsSubContainer.appendChild(project);
 }
@@ -184,7 +188,7 @@ function createTaskElement(t, viewMode) {
 
     const date = document.createElement("div");
     date.classList.add("date");
-    t.date ? date.textContent = format(t.date, "MMM do" ) : '';
+    t.date ? date.textContent = format(t.date, "MMM do") : '';
 
     let project;
 
@@ -234,7 +238,7 @@ function createTaskElement(t, viewMode) {
     task.appendChild(date);
     if (viewMode === 'filter') { task.appendChild(project) };
     task.appendChild(important);
-    
+
     contextContainer.appendChild(contextMenuButton);
     task.appendChild(contextContainer);
 
@@ -257,7 +261,11 @@ function openContextMenu(obj, element, e) {
 
     ctxMenu.appendChild(ctxEdit);
     ctxMenu.appendChild(ctxDelete);
-    element.appendChild(ctxMenu);
+
+    if (element.classList.contains('project')) {
+        element.querySelector(".context-container").appendChild(ctxMenu);
+
+    } else { element.appendChild(ctxMenu); }
 
     document.addEventListener('click', function (event) {
         if (event.target === ctxEdit) {
@@ -311,10 +319,7 @@ function contextDelete(obj) {
 export function createTaskForm(existingTask, element) {
     let taskHasForm = tasksContainer.querySelector("form") != null;
     let prjHasForm = projectsSubContainer.querySelector("form") != null;
-    console.log('tem que entrar. ');
 
-    // if (taskHasForm === false) {
-    console.log('entrei.');
     if (prjHasForm) { projectsSubContainer.querySelector("form").remove(); }
 
     const form = document.createElement("form");
@@ -355,6 +360,7 @@ export function createTaskForm(existingTask, element) {
 
     const submitButton = document.createElement("button");
     submitButton.type = "submit";
+    submitButton.id = "submit-task";
     submitButton.textContent = "Add";
 
     const cancelButton = document.createElement("button");
@@ -383,12 +389,8 @@ export function createTaskForm(existingTask, element) {
     }
 
     dialog.appendChild(form);
-    tasksContainer.appendChild(dialog);
-
-    // existingTask ?
-    //     element.replaceWith(form) :
+    tasksContainer.appendChild(dialog);    
     dialog.showModal();
-    // }
 }
 
 function createProjectOptions(existingTask) {

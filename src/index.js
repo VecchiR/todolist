@@ -2,6 +2,8 @@ import { taskList, projectList } from "./logic";
 import { updateSelectedViewTag, createProjectForm, createTaskForm, updateProjects, assingProjectValues, updateTasks, renderMainContent, assingTaskValues, loadStartPage } from "./DOMhandling";
 import { storeListsLocally } from "./localstorage";
 import './style.css';
+import addIcon from "./icons/add.svg";
+import githubIcon from "./icons/github-mark.svg";
 
 
 
@@ -19,6 +21,10 @@ export const addTaskBtn = document.querySelector('.add-task');
 addTaskBtn.addEventListener('click', () => {
     createTaskForm();
 });
+const btnImg = document.querySelector(".button-image");
+btnImg.src = addIcon;
+
+document.querySelector(".gh-logo").src = githubIcon;
 
 document.addEventListener ('keydown', (e) => {
     if (e.code === 'Escape' && document.querySelector('dialog')) {
@@ -48,7 +54,6 @@ projectsSubContainer.addEventListener('click', (e) => {
             //if this project view is open, update view label
             if (mainLabel.getAttribute('prjOrFilterID') === prj.id) {
                 renderMainContent('project', prj);
-                console.log(prj.id);
                 updateSelectedViewTag(document.querySelector(`div[projectID="${prj.id}"]`));
             }
 

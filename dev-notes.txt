@@ -54,21 +54,27 @@ DONE:
     OK - MODULES:
         OK - remove ununsed console Logs, old code, etc
         OK - remove unused comments
-        OK - passar tudo o que for DOMstuff ou localstorage para os modulos certos
-
-DOING:
+        
     VISUAL:
-        - overflow ellipsis (project side, project on task, project on selector)
-        - min. size pras coisas que tem overflow? (task name, task prj...)
-        - task context menu (absolute)
+        OK - passar tudo o que for DOMstuff ou localstorage para os modulos certos
+        OK - task context menu (absolute)
         OK - change context menu behavior for FIRST CHILD (ou primeiro na vista? tipo, se scrollar pra baixo)
-        - style add task button
         OK - style add project form
-        - button hover effects
-        - edit footer
+        OK - style add task button
+        OK - button hover effects
+        OK - project context menu (absolute)
+        OK - overflow ellipsis project sidebar
+        OK - fix context-menu logic on project (sidebar)
+        OK - overflow ellipsis project on dialog selector
+        OK - overflow ellipsis project on task element
+        OK - min. size pras coisas que tem overflow? (task name, task prj...)
+        OK - edit footer
+        OK - border date?
+        OK - border project?
 
 TO-DO:
     extras:
+        - task element: trocar prj e date de lugar?
         - permitir escolher (e salvar) qual a vista default (default = all tasks, reabrir onde parou, selecionar projeto/filtro)
         - implementar light/dark mode
         - salvar e ler light/dark mode
