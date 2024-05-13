@@ -323,19 +323,26 @@ body > div.main-content > div.tasks-container > dialog > form > button:nth-child
     padding: 2px 8px;
 }
 
-.tasks-container:not(:first-child) > .context-menu {
+.context-menu {
     padding: 8px;
     border-radius: 6px;
-    position: absolute;
-    background-color: #aaa9a999;
-    /* color: var(--background); */
+    background-color: #d7d7d7cf;
     z-index: 5;
-    bottom: 24px;
-    right: 16px;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     row-gap: 9px;
+    position: absolute;
+}
+
+.task:not(:first-child) > .context-container > .context-menu {
+    bottom: 24px;
+    right: 16px;
+}
+
+.task:first-child > .context-container > .context-menu {
+    top: 24px;
+    right: 16px;
 }
 
 .context-container {

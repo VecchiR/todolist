@@ -61,7 +61,7 @@ DOING:
         - overflow ellipsis (project side, project on task, project on selector)
         - min. size pras coisas que tem overflow? (task name, task prj...)
         - task context menu (absolute)
-        - change context menu behavior for FIRST CHILD (ou primeiro na vista? tipo, se scrollar pra baixo)
+        OK - change context menu behavior for FIRST CHILD (ou primeiro na vista? tipo, se scrollar pra baixo)
         - style add task button
         OK - style add project form
         - button hover effects
