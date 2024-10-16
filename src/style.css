@@ -154,6 +154,7 @@ header {
     row-gap: 10px;
     overflow-y: auto;
     overflow-x: hidden;
+    min-height: 50%;
 }
 
 .no-tasks-text {
